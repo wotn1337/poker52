@@ -9,16 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@ant-design/nextjs-registry": "^1.0.0",
+    "@next-auth/mongodb-adapter": "^1.1.3",
+    "@reduxjs/toolkit": "^2.2.6",
+    "antd": "^5.19.1",
+    "bcrypt": "^5.1.1",
+    "generate-password": "^1.7.1",
+    "mongoose": "^8.5.1",
+    "next": "14.2.5",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.5"
+    "react-redux": "^9.1.2",
+    "sass": "^1.77.8"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.5",
+    "typescript": "^5"
   }
 }

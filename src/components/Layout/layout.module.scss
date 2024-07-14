@@ -1,0 +1,40 @@
+.layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    background-color: black;
+    line-height: normal;
+
+    @media screen and (max-width: 500px) {
+      padding: 0 10px;
+    }
+
+    &__inner {
+      height: 100%;
+      color: white;
+
+      .cardsIcon {
+      }
+
+      .title {
+        color: white;
+        margin: 0;
+      }
+
+      .username {
+        color: white;
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 0 50px;
+
+    @media screen and (max-width: 500px) {
+      padding: 0 10px;
+    }
+  }
+}
