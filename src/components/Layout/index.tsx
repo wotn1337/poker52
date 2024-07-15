@@ -1,16 +1,25 @@
 "use client";
-import { Layout as AntdLayout, Button, Flex, Space, Typography } from "antd";
+import {
+  Layout as AntdLayout,
+  Button,
+  Flex,
+  Space,
+  Spin,
+  Typography,
+} from "antd";
 import s from "./layout.module.scss";
 import { FC, PropsWithChildren } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import CardsIcon from "../../../public/cards.svg";
+import { useGetRandomQuoteQuery } from "@/store/api";
 const package_json = require("../../../package.json");
 
 const { Header, Content, Footer } = AntdLayout;
 
 export const Layout: FC<PropsWithChildren<{}>> = ({ children }) => {
   const { data: session, status } = useSession();
+  const { data: quoteData, isLoading, isFetching } = useGetRandomQuoteQuery();
   return (
     <AntdLayout className={s.layout}>
       <Header className={s.header}>
@@ -49,7 +58,20 @@ export const Layout: FC<PropsWithChildren<{}>> = ({ children }) => {
         </Flex>
       </Header>
       <Content className={s.content}>{children}</Content>
-      <Footer className={s.footer}>v{package_json.version}</Footer>
+      <Footer className={s.footer}>
+        <Spin spinning={isLoading || isFetching}>
+          <Typography.Paragraph className={s.footer__quote} italic>
+            "{quoteData?.quote}"
+            <Typography.Text className={s.quoteAutor}>
+              {" "}
+              — {quoteData?.author}
+            </Typography.Text>
+          </Typography.Paragraph>
+        </Spin>
+        <Typography.Text className={s.footer__version}>
+          v{package_json.version}
+        </Typography.Text>
+      </Footer>
     </AntdLayout>
   );
 };

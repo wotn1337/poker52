@@ -10,7 +10,7 @@ import {
   Modal,
   Typography,
 } from "antd";
-import { useCreateUserMutation } from "@/store/users/api";
+import { useCreateUserMutation } from "@/store/api";
 import { CreateUserParams, UpdateUserParams } from "@/models/User";
 
 type Props = {

@@ -1,7 +1,7 @@
 "use client";
 import { Space, Table, TableProps, Typography } from "antd";
 import s from "./leaderbord.module.scss";
-import { useGetUsersQuery } from "@/store/users/api";
+import { useGetUsersQuery } from "@/store/api";
 import { useLeaderboardColumns } from "@/hooks/useLeaderboardColumns";
 import { useSession } from "next-auth/react";
 

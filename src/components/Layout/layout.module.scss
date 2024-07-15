@@ -39,9 +39,26 @@
 
   .footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     background-color: #262626;
-    color: white;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    &__quote {
+      color: white;
+      margin: 0;
+
+      .quoteAutor {
+        color: white;
+        font-style: normal;
+      }
+    }
+
+    &__version {
+      display: block;
+      margin-left: auto;
+      color: white;
+    }
   }
 }

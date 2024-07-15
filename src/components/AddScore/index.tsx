@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Button, Form, FormProps, InputNumber, Modal, Tooltip } from "antd";
 import { DollarOutlined, PlusOutlined } from "@ant-design/icons";
 import { BaseUser, UpdateUserParams } from "@/models/User";
-import { useUpdateUserMutation } from "@/store/users/api";
+import { useUpdateUserMutation } from "@/store/api";
 
 type Props = {
   user: BaseUser;

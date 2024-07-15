@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { usersApi } from "./users/api";
+import { apiSlice } from "./api";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      [usersApi.reducerPath]: usersApi.reducer,
+      [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaltMiddleware) =>
-      getDefaltMiddleware().concat(usersApi.middleware),
+      getDefaltMiddleware().concat(apiSlice.middleware),
   });
 };
 

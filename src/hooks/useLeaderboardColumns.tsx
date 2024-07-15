@@ -5,7 +5,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Space, TableProps, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
 import s from "@/components/Leaderboard/leaderbord.module.scss";
-import { useDeleteUserMutation } from "@/store/users/api";
+import { useDeleteUserMutation } from "@/store/api";
 import { useState } from "react";
 
 export const useLeaderboardColumns = () => {
