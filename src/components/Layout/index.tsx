@@ -61,7 +61,7 @@ export const Layout: FC<PropsWithChildren<{}>> = ({ children }) => {
       <Footer className={s.footer}>
         <Spin spinning={isLoading || isFetching}>
           <Typography.Paragraph className={s.footer__quote} italic>
-            "{quoteData?.quote}"
+            &ldquo;{quoteData?.quote}&rdquo;
             <Typography.Text className={s.quoteAutor}>
               {" "}
               — {quoteData?.author}
