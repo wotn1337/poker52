@@ -6,8 +6,6 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Login() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
   const { data: session, status } = useSession();
   const [form] = Form.useForm();
 
@@ -16,9 +14,7 @@ export default function Login() {
       name: values.name,
       password: values.password,
       callbackUrl: "/",
-      // redirect: false,
     });
-    // mutate(values);
   };
 
   useEffect(() => {
@@ -28,7 +24,7 @@ export default function Login() {
   }, [session]);
 
   return (
-    <Flex justify="center" align="center" style={{ height: "100%" }}>
+    <Flex justify="center" align="center" style={{ flex: 1 }}>
       <Form layout="vertical" size="large" form={form} onFinish={onLogin}>
         <Form.Item
           label="Имя"

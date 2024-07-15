@@ -17,7 +17,7 @@ export const Leaderboard = () => {
 
   return (
     <Space direction="vertical" className={s.playersTableWrapper}>
-      <Typography.Title level={2}>
+      <Typography.Title level={2} className={s.title}>
         Топ самых влиятельных лиц НБП
       </Typography.Title>
       <Table
@@ -30,6 +30,7 @@ export const Leaderboard = () => {
           className:
             record._id === session?.user.id ? s.currentUserRow : undefined,
         })}
+        scroll={{ x: "100%" }}
       />
     </Space>
   );

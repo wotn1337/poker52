@@ -25,6 +25,10 @@ export const usersApi = createApi({
       query: ({ _id, ...body }) => ({ url: `/${_id}`, method: "PATCH", body }),
       invalidatesTags: tags,
     }),
+    deleteUser: builder.mutation<boolean, string>({
+      query: (id) => ({ url: `/${id}`, method: "DELETE" }),
+      invalidatesTags: tags,
+    }),
   }),
 });
 
@@ -32,4 +36,5 @@ export const {
   useGetUsersQuery,
   useCreateUserMutation,
   useUpdateUserMutation,
+  useDeleteUserMutation,
 } = usersApi;

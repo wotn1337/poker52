@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { status: sessionStatus, data: session } = useSession();
-  // const router = useRouter();
 
   useEffect(() => {
     if (sessionStatus === "unauthenticated" && !session) {
@@ -18,7 +17,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   // Если сессия загружается, показываем заглушку или спиннер загрузки
   if (sessionStatus === "loading") {
     return (
-      <Flex justify="center" align="center" style={{ height: "100%" }}>
+      <Flex justify="center" align="center" style={{ flex: 1 }}>
         <Spin size="large" />
       </Flex>
     );

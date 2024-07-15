@@ -1,7 +1,17 @@
 .playersTableWrapper {
   width: 100%;
 
+  .title {
+    margin-top: 0;
+  }
+
   .currentUserRow {
     background-color: #fff1f0;
+  }
+
+  .placeIconCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

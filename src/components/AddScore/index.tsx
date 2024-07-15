@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { Button, Form, FormProps, InputNumber, Modal, Tooltip } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { DollarOutlined, PlusOutlined } from "@ant-design/icons";
 import { BaseUser, UpdateUserParams } from "@/models/User";
 import { useUpdateUserMutation } from "@/store/users/api";
 
@@ -37,7 +37,10 @@ export const AddScore: FC<Props> = ({ user }) => {
   return (
     <>
       <Tooltip title="Добавить выигрыш">
-        <Button icon={<PlusOutlined />} onClick={handleOpenModal} />
+        <Button
+          icon={<DollarOutlined style={{ color: "#52c41a" }} />}
+          onClick={handleOpenModal}
+        />
       </Tooltip>
       <Modal
         title="Добавить выигрыш"

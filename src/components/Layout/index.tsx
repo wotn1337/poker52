@@ -1,20 +1,13 @@
 "use client";
-
-import {
-  Layout as AntdLayout,
-  Button,
-  Divider,
-  Flex,
-  Space,
-  Typography,
-} from "antd";
+import { Layout as AntdLayout, Button, Flex, Space, Typography } from "antd";
 import s from "./layout.module.scss";
 import { FC, PropsWithChildren } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import CardsIcon from "../../../public/cards.svg";
+const package_json = require("../../../package.json");
 
-const { Header, Content } = AntdLayout;
+const { Header, Content, Footer } = AntdLayout;
 
 export const Layout: FC<PropsWithChildren<{}>> = ({ children }) => {
   const { data: session, status } = useSession();
@@ -40,12 +33,12 @@ export const Layout: FC<PropsWithChildren<{}>> = ({ children }) => {
           </Space>
           <Space>
             {session ? (
-              <Button type="link" onClick={() => signOut()}>
+              <Button type="primary" onClick={() => signOut()}>
                 Выйти
               </Button>
             ) : (
               <Button
-                type="link"
+                type="primary"
                 onClick={() => signIn()}
                 loading={status === "loading"}
               >
@@ -56,6 +49,7 @@ export const Layout: FC<PropsWithChildren<{}>> = ({ children }) => {
         </Flex>
       </Header>
       <Content className={s.content}>{children}</Content>
+      <Footer className={s.footer}>v{package_json.version}</Footer>
     </AntdLayout>
   );
 };
