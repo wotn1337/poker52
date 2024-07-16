@@ -1,24 +1,13 @@
-import { AddScore } from "@/components/AddScore";
+import { AddScoreButton } from "@/components/Leaderboard/AddScoreButton";
+import { DeleteUserButton } from "@/components/Leaderboard/DeleteUserButton";
+import s from "@/components/Leaderboard/leaderbord.module.scss";
 import { getPlaceCellContent } from "@/lib/getPlaceCellContent";
 import { BaseUser } from "@/models/User";
-import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Space, TableProps, Tooltip } from "antd";
+import { Space, TableProps } from "antd";
 import { useSession } from "next-auth/react";
-import s from "@/components/Leaderboard/leaderbord.module.scss";
-import { useDeleteUserMutation } from "@/store/api";
-import { useState } from "react";
 
 export const useLeaderboardColumns = () => {
   const { data: session } = useSession();
-  const [deletingIds, setDeletingIds] = useState<string[]>([]);
-  const [deleteUser] = useDeleteUserMutation();
-
-  const handleDeleteUser = (id: string) => {
-    setDeletingIds([...deletingIds, id]);
-    deleteUser(id).then(() => {
-      setDeletingIds(deletingIds.filter((item) => item !== id));
-    });
-  };
 
   const columns: TableProps<BaseUser>["columns"] = [
     {
@@ -48,15 +37,9 @@ export const useLeaderboardColumns = () => {
       key: "action",
       render: (_, user) => (
         <Space size="middle">
-          <AddScore user={user} />
+          <AddScoreButton userId={user._id} />
           {user._id !== session?.user.id && (
-            <Tooltip title="Удалить игрока">
-              <Button
-                icon={<DeleteOutlined />}
-                onClick={() => handleDeleteUser(user._id)}
-                loading={deletingIds.includes(user._id)}
-              />
-            </Tooltip>
+            <DeleteUserButton userId={user._id} />
           )}
         </Space>
       ),

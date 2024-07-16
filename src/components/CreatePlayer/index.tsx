@@ -7,6 +7,7 @@ import {
   Form,
   FormProps,
   Input,
+  message,
   Modal,
   Typography,
 } from "antd";
@@ -22,8 +23,7 @@ const { Text } = Typography;
 export const CreatePlayer: FC<Props> = () => {
   const [form] = Form.useForm<CreateUserParams>();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [createUser, { isLoading, data: createdUser, reset }] =
-    useCreateUserMutation();
+  const [createUser, { isLoading, reset }] = useCreateUserMutation();
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -36,7 +36,14 @@ export const CreatePlayer: FC<Props> = () => {
   };
 
   const onFinish: FormProps<CreateUserParams>["onFinish"] = (values) => {
-    createUser(values);
+    createUser(values).then((res) => {
+      navigator.clipboard
+        .writeText(`Логин: ${res.data?.name}\nПароль: ${res.data?.password}`)
+        .then(() => {
+          message.success("Данные нового пользователя скопированы");
+          handleCancel();
+        });
+    });
   };
 
   return (
@@ -74,19 +81,14 @@ export const CreatePlayer: FC<Props> = () => {
             <Checkbox>Админ</Checkbox>
           </Form.Item>
           <Form.Item style={{ margin: 0 }}>
-            <Flex justify="space-between" align="center">
-              <Button type="primary" htmlType="submit" loading={isLoading}>
-                Добавить
-              </Button>
-              {createdUser?.password && (
-                <Text>
-                  Пароль:&nbsp;
-                  <Text copyable style={{ fontSize: 16 }} onCopy={handleCancel}>
-                    {createdUser?.password}
-                  </Text>
-                </Text>
-              )}
-            </Flex>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={isLoading}
+              style={{ width: "100%" }}
+            >
+              Добавить
+            </Button>
           </Form.Item>
         </Form>
       </Modal>

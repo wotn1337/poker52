@@ -45,6 +45,28 @@
     flex-wrap: wrap;
     gap: 16px;
 
+    @media screen and (max-width: 500px) {
+      padding: 20px 10px;
+    }
+
+    .quoteSkeleton {
+      width: 90%;
+
+      :global(.ant-skeleton-content .ant-skeleton-paragraph) {
+        margin: 0;
+
+        li {
+          background-image: linear-gradient(
+            90deg,
+            rgb(140, 140, 140, 0.5),
+            rgba(89, 89, 89, 0.5),
+            rgb(140, 140, 140, 0.5)
+          );
+          width: 80%;
+        }
+      }
+    }
+
     &__quote {
       color: white;
       margin: 0;

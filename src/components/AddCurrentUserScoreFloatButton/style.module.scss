@@ -1,0 +1,10 @@
+.addCurrentUserScoreFloatButton {
+  width: 60px;
+  height: 60px;
+
+  :global(
+      .ant-float-btn-icon.ant-float-btn-icon.ant-float-btn-icon.ant-float-btn-icon
+    ) {
+    width: 30px;
+  }
+}

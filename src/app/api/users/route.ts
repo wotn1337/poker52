@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
       password: hashedPassword,
     });
     await savedUser.save();
-    return NextResponse.json({ ...savedUser, password });
+    return NextResponse.json({ ...savedUser._doc, password });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error }, { status: 400 });

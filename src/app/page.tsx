@@ -1,4 +1,6 @@
 "use client";
+import { AddCurrentUserScoreFloatButton } from "@/components/AddCurrentUserScoreFloatButton";
+import { AddScoreModal } from "@/components/AddScoreModal";
 import { CreatePlayer } from "@/components/CreatePlayer";
 import { Leaderboard } from "@/components/Leaderboard";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -14,6 +16,8 @@ export default function Home() {
         <Leaderboard />
         {session?.user?.isAdmin && <CreatePlayer onCreate={() => {}} />}
       </Space>
+      <AddCurrentUserScoreFloatButton />
+      <AddScoreModal />
     </ProtectedRoute>
   );
 }

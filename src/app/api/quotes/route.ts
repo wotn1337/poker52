@@ -8,11 +8,6 @@ import Quote from "@/models/Quote";
 export async function GET() {
   try {
     await dbConnect();
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
     const count = await Quote.countDocuments();
     const random = Math.floor(Math.random() * count);
     const randomQuote = await Quote.findOne().skip(random).limit(1);

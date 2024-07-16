@@ -20,11 +20,16 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ message: "Invalid user ID" }, { status: 400 });
     }
 
-    const paramsToUpdate = await req.json();
+    const body = await req.json();
+    const { score, ...paramsToUpdate } = body;
 
-    const updatedUser = await User.findByIdAndUpdate(id, paramsToUpdate, {
-      new: true,
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { ...paramsToUpdate, $inc: { score } },
+      {
+        new: true,
+      }
+    );
 
     if (!updatedUser) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
