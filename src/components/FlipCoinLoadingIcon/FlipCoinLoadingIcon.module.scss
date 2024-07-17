@@ -1,0 +1,37 @@
+@keyframes spin {
+  0% {
+    transform: rotateX(0) rotateY(0) rotateZ(0d);
+  }
+  50% {
+    transform: rotateX(0) rotateY(90deg) rotateZ(0);
+  }
+  100% {
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+}
+
+.flipCoinLoadingIcon {
+  animation: spin 1s infinite linear;
+  transform-style: preserve-3d;
+}
+
+:global(.ant-spin) {
+  .flipCoinLoadingIcon {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+:global(.ant-spin-sm) {
+  .flipCoinLoadingIcon {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+:global(.ant-spin-lg) {
+  .flipCoinLoadingIcon {
+    height: 50px;
+    width: 50px;
+  }
+}

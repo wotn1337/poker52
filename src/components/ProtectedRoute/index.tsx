@@ -1,20 +1,18 @@
 "use client";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useSession } from "next-auth/react";
 import { Flex, Spin } from "antd";
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { status: sessionStatus, data: session } = useSession();
 
   useEffect(() => {
     if (sessionStatus === "unauthenticated" && !session) {
-      redirect("/login"); // Перенаправляем на страницу входа, если пользователь не авторизован
+      redirect("/login");
     }
-  }, [sessionStatus]);
+  }, [sessionStatus, session]);
 
-  // Если сессия загружается, показываем заглушку или спиннер загрузки
   if (sessionStatus === "loading") {
     return (
       <Flex justify="center" align="center" style={{ flex: 1 }}>
@@ -23,7 +21,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  // Если пользователь авторизован, показываем защищенный маршрут
   return <>{children}</>;
 };
 
