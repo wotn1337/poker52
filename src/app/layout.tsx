@@ -27,6 +27,10 @@ export default function RootLayout({
           type="image/<generated>"
           sizes="<generated>"
         />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
       </Head>
       <body className={inter.className}>
         <Providers>
