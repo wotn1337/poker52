@@ -10,6 +10,9 @@ export type BaseUser = {
 export type CreateUserParams = Omit<BaseUser, "_id" | "score">;
 export type UpdateUserParams = Partial<BaseUser>;
 export type UpdatedUser = UpdateUserParams & { _id: string };
+export type UpdateScore = Omit<BaseUser, "name" | "isAdmin"> & {
+  isWin: boolean;
+};
 
 export type CreateUserResponse = BaseUser & {
   password: string;

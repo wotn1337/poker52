@@ -21,6 +21,7 @@ export const AddCurrentUserScoreFloatButton = () => {
       onClick={handleClick}
       className={s.addCurrentUserScoreFloatButton}
       type="primary"
+      tooltip="Изменить счет"
     />
   );
 };
