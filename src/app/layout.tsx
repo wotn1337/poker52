@@ -1,11 +1,10 @@
+import { Layout } from "@/components/Layout";
+import Providers from "@/providers";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Providers from "@/providers";
-import { Layout } from "@/components/Layout";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Head from "next/head";
-import Favicon from "../../public/cards.svg";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
