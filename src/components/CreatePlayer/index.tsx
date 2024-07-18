@@ -23,6 +23,7 @@ const { Text } = Typography;
 export const CreatePlayer: FC<Props> = () => {
   const [form] = Form.useForm<CreateUserParams>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [password, setPassword] = useState<string>();
   const [createUser, { isLoading, reset }] = useCreateUserMutation();
 
   const handleOpenModal = () => {
@@ -33,15 +34,17 @@ export const CreatePlayer: FC<Props> = () => {
     setIsModalOpen(false);
     reset();
     form.resetFields();
+    setPassword(undefined);
   };
 
   const onFinish: FormProps<CreateUserParams>["onFinish"] = (values) => {
     createUser(values).then((res) => {
+      setPassword(res.data?.password);
       navigator.clipboard
         .writeText(`Логин: ${res.data?.name}\nПароль: ${res.data?.password}`)
         .then(() => {
           message.success("Данные нового пользователя скопированы");
-          handleCancel();
+          // handleCancel();
         });
     });
   };
@@ -90,6 +93,7 @@ export const CreatePlayer: FC<Props> = () => {
               Добавить
             </Button>
           </Form.Item>
+          {password && <Text copyable>{password}</Text>}
         </Form>
       </Modal>
     </>
