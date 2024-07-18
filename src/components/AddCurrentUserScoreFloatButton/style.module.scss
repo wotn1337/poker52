@@ -1,6 +1,8 @@
 .addCurrentUserScoreFloatButton {
-  width: 60px;
-  height: 60px;
+  &:global(.ant-float-btn.ant-float-btn-primary.ant-float-btn-circle) {
+    width: 60px;
+    height: 60px;
+  }
 
   :global(
       .ant-float-btn-icon.ant-float-btn-icon.ant-float-btn-icon.ant-float-btn-icon

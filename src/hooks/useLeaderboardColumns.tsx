@@ -5,6 +5,7 @@ import { getPlaceCellContent } from "@/lib/getPlaceCellContent";
 import { BaseUser } from "@/models/User";
 import { Space, TableProps } from "antd";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export const useLeaderboardColumns = () => {
   const { data: session } = useSession();
@@ -24,6 +25,7 @@ export const useLeaderboardColumns = () => {
       title: "Имя",
       dataIndex: "name",
       key: "name",
+      render: (name, user) => <Link href={`users/${user._id}`}>{name}</Link>,
     },
     {
       title: "Залутано / Слито",

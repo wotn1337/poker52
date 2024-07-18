@@ -1,9 +1,7 @@
 "use server";
-import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
 import Quote from "@/models/Quote";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {

@@ -13,9 +13,12 @@ const tags = ["User"];
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
   tagTypes: tags,
   endpoints: (builder) => ({
+    getUser: builder.query<BaseUser, string>({
+      query: (id) => ({ url: `users/${id}`, method: "GET" }),
+    }),
     getUsers: builder.query<BaseUser[], void>({
       query: () => ({ url: "users", method: "GET" }),
       providesTags: tags,
@@ -56,4 +59,5 @@ export const {
   useGetRandomQuoteQuery,
   useLazyGetRandomWinCongratulationQuery,
   useLazyGetRandomLoseConsalationQuery,
+  useGetUserQuery,
 } = apiSlice;
