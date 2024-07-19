@@ -28,7 +28,7 @@ jobs:
             # which npm
             cd poker52.na4u.ru/app
             git pull origin main
-            npm -v
+            /home/c94140/.nvm/versions/node/v22.4.1/bin/npm -v
             # npm install
             # npm install --only=dev
             # /home/c94140/.nvm/versions/node/v22.4.1/bin/npm run build
