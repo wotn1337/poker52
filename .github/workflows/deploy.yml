@@ -22,14 +22,14 @@ jobs:
 
       - name: Build and Deploy
         run: |
-          ssh c94140@91.201.52.229 << 'EOF'
+          ssh -t c94140@91.201.52.229 << 'EOF'
             # source ~/.bashrc
-            echo $PATH
-            which npm
+            # echo $PATH
+            # which npm
             cd poker52.na4u.ru/app
             ls
             git pull origin main
-            # sudo npm -v
+            npm -v
             # npm install
             # npm install --only=dev
             # /home/c94140/.nvm/versions/node/v22.4.1/bin/npm run build
