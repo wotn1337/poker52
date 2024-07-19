@@ -28,5 +28,5 @@ jobs:
             git pull origin main
             # npm install
             # npm install --only=dev
-            npm run build
+            /home/c94140/.nvm/versions/node/v22.4.1/bin/npm run build
           EOF
