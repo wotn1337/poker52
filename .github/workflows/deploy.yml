@@ -24,6 +24,7 @@ jobs:
         run: |
           ssh c94140@91.201.52.229 << 'EOF'
             source ~/.bashrc
+            echo $PATH
             cd poker52.na4u.ru/app
             ls
             git pull origin main
