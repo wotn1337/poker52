@@ -27,7 +27,6 @@ jobs:
             # echo $PATH
             # which npm
             cd poker52.na4u.ru/app
-            ls
             git pull origin main
             npm -v
             # npm install
