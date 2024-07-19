@@ -16,13 +16,13 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.PRIVATE_SHH_KEY_SERVER }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SHH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 91.201.52.229 >> ~/.ssh/known_hosts
 
       - name: Build and Deploy
         run: |
-          ssh -t c94140@91.201.52.229 << 'EOF'
+          ssh c94140@91.201.52.229 << 'EOF'
             # source ~/.bashrc
             # echo $PATH
             # which npm
