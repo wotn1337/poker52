@@ -23,10 +23,6 @@ jobs:
       - name: Build and Deploy
         run: |
           ssh c94140@91.201.52.229 << 'EOF'
-            source ~/.profile
-            source ~/.bashrc
-            export PATH=$PATH:/usr/local/bin
-            source ~/.profile
             source ~/.bashrc
             # echo $PATH
             # which npm
