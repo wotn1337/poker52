@@ -20,32 +20,20 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 91.201.52.229 >> ~/.ssh/known_hosts
 
-      - name: Copy script to server
+      - name: Build and Deploy
         run: |
-          echo "
-          #!/bin/bash
-          source ~/.profile
-          cd poker52.na4u.ru/app
-          git pull origin main
-          npm install
-          npm run build
-          " > deploy.sh
-          scp deploy.sh c94140@91.201.52.229:/tmp/deploy.sh
-
-      - name: Execute script on server
-        run: |
-          ssh c94140@91.201.52.229 'bash /tmp/deploy.sh'
-
-      # - name: Build and Deploy
-      #   run: |
-      #     ssh c94140@91.201.52.229 << 'EOF'
-      #       # source ~/.bashrc
-      #       # echo $PATH
-      #       # which npm
-      #       cd poker52.na4u.ru/app
-      #       git pull origin main
-      #       npm -v
-      #       # npm install
-      #       # npm install --only=dev
-      #       # /home/c94140/.nvm/versions/node/v22.4.1/bin/npm run build
-      #     EOF
+          ssh c94140@91.201.52.229 << 'EOF'
+            source ~/.profile
+            source ~/.bashrc
+            export PATH=$PATH:/usr/local/bin
+            source ~/.profile
+            source ~/.bashrc
+            # echo $PATH
+            # which npm
+            cd poker52.na4u.ru/app
+            git pull origin main
+            /usr/local/bin/npm -v
+            # npm install
+            # npm install --only=dev
+            # /home/c94140/.nvm/versions/node/v22.4.1/bin/npm run build
+          EOF
