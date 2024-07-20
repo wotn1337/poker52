@@ -2,7 +2,6 @@ import { FC } from "react";
 import s from "./FlipCoinLoadingIcon.module.scss";
 
 const FlipCoinLoadingIcon: FC = (props) => {
-  console.log(props);
   return (
     <span className="ant-spin-dot-holder">
       <svg
@@ -13,7 +12,7 @@ const FlipCoinLoadingIcon: FC = (props) => {
         xmlns="http://www.w3.org/2000/svg"
         className={`${s.flipCoinLoadingIcon} ant-spin-dot`}
       >
-        <g clip-path="url(#clip0_1_2)">
+        <g clipPath="url(#clip0_1_2)">
           <path
             d="M199.999 99.9994C199.999 44.772 155.227 0 99.9998 0C44.7724 0 0.000389099 44.772 0.000389099 99.9994C0.000389099 155.227 44.7724 199.999 99.9998 199.999C155.227 199.999 199.999 155.227 199.999 99.9994Z"
             fill="#CF1322"

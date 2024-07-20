@@ -7,7 +7,6 @@ export async function GET() {
   try {
     await dbConnect();
     const count = await WinCongratulation.countDocuments();
-    console.log(count);
     const random = Math.floor(Math.random() * count);
     const randomWinCongratulation = await WinCongratulation.findOne()
       .skip(random)

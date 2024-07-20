@@ -35,7 +35,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  // adapter: MongoDBAdapter(dbConnect),
   pages: {
     signIn: "/login",
   },
@@ -53,6 +52,13 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      await dbConnect();
+      const user = await User.findById(token.id);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
       if (token) {
         session.user.id = token.id as string;
         session.user.isAdmin = token.isAdmin as boolean;

@@ -13,6 +13,8 @@ import {
 } from "antd";
 import { useCreateUserMutation } from "@/store/api";
 import { CreateUserParams, UpdateUserParams } from "@/models/User";
+import { copyToClipboard } from "@/lib/copyToClipboard";
+import { isErrorWithMessage } from "@/typeGuard";
 
 type Props = {
   onCreate: (player: any) => void;
@@ -39,13 +41,17 @@ export const CreatePlayer: FC<Props> = () => {
 
   const onFinish: FormProps<CreateUserParams>["onFinish"] = (values) => {
     createUser(values).then((res) => {
-      setPassword(res.data?.password);
-      navigator.clipboard
-        .writeText(`Логин: ${res.data?.name}\nПароль: ${res.data?.password}`)
-        .then(() => {
+      if (!res.error) {
+        setPassword(res.data.password);
+        copyToClipboard(
+          `Логин: ${res.data.name}\nПароль: ${res.data.password}`
+        ).then(() => {
           message.success("Данные нового пользователя скопированы");
           // handleCancel();
         });
+      } else if (isErrorWithMessage(res.error)) {
+        message.error(res.error.message);
+      }
     });
   };
 

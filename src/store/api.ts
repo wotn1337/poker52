@@ -26,6 +26,7 @@ export const apiSlice = createApi({
     createUser: builder.mutation<CreateUserResponse, CreateUserParams>({
       query: (body) => ({ url: "users", method: "POST", body }),
       invalidatesTags: tags,
+      transformErrorResponse: (error) => error.data,
     }),
     updateUser: builder.mutation<BaseUser, UpdatedUser>({
       query: ({ _id, ...body }) => ({

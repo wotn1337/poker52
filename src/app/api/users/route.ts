@@ -18,17 +18,17 @@ export async function GET() {
     const users = await User.find().sort({ score: -1, name: 1 });
     return NextResponse.json(users);
   } catch (error) {
-    return NextResponse.json({ error: "User already exists" }, { status: 400 });
+    return NextResponse.json({ message: "Users get error" }, { status: 400 });
   }
 }
 
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
-    // const session = await getServerSession(authOptions);
-    // if (!session) {
-    //   return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    // }
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
     const body = await req.json();
     const { name, isAdmin } = body;
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     if (user) {
       return NextResponse.json(
-        { error: "User already exists" },
+        { message: "User already exists" },
         { status: 400 }
       );
     }
