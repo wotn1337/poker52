@@ -15,7 +15,10 @@ export async function GET() {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const users = await User.find().sort({ score: -1, name: 1 });
+    const users = await User.find({}, { scoreHistory: 0, password: 0 }).sort({
+      totalScore: -1,
+      name: 1,
+    });
     return NextResponse.json(users);
   } catch (error) {
     return NextResponse.json({ message: "Users get error" }, { status: 400 });

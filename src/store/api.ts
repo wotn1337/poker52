@@ -5,6 +5,7 @@ import {
   CreateUserResponse,
   CreateUserParams,
   UpdatedUser,
+  FullUser,
 } from "@/models/User";
 import { WinCongratulation } from "@/models/WinCongratulation";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -16,7 +17,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
   tagTypes: tags,
   endpoints: (builder) => ({
-    getUser: builder.query<BaseUser, string>({
+    getUser: builder.query<FullUser, string>({
       query: (id) => ({ url: `users/${id}`, method: "GET" }),
     }),
     getUsers: builder.query<BaseUser[], void>({

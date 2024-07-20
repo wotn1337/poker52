@@ -54,10 +54,23 @@ export async function PATCH(req: NextRequest) {
 
     const body = await req.json();
     const { score, ...paramsToUpdate } = body;
+    const user = await User.findById(id, { totalScore: 1 });
+    const currentTotalScore = user.totalScore;
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { ...paramsToUpdate, $inc: { score } },
+      {
+        ...paramsToUpdate,
+        $inc: {
+          totalScore: score,
+        },
+        $push: {
+          scoreHistory: {
+            changeScoreValue: score,
+            totalScoreAfterValue: score + currentTotalScore,
+          },
+        },
+      },
       {
         new: true,
       }

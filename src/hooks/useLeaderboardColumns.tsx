@@ -29,8 +29,8 @@ export const useLeaderboardColumns = () => {
     },
     {
       title: "Залутано / Слито",
-      dataIndex: "score",
-      key: "score",
+      dataIndex: "totalScore",
+      key: "totalScore",
     },
   ];
 
