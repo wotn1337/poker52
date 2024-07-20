@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup SSH
         run: |
@@ -25,7 +25,7 @@ jobs:
           ssh c94140@91.201.52.229 << 'EOF'
             source ~/.bashrc
             export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use --lts
             cd poker52.na4u.ru/app
             git pull origin main
