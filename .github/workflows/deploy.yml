@@ -24,13 +24,16 @@ jobs:
         run: |
           ssh c94140@91.201.52.229 << 'EOF'
             source ~/.bashrc
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+            nvm use --lts
             # echo $PATH
             # which npm
             cd poker52.na4u.ru/app
             git pull origin main
-            rm -rf node_modules
-            rm -f package-lock.json
-            /home/c94140/.nvm/versions/node/v22.4.1/bin/npm -v
+            # rm -rf node_modules
+            # rm -f package-lock.json
+            npm -v
             /home/c94140/.nvm/versions/node/v22.4.1/bin/npm install
             /home/c94140/.nvm/versions/node/v22.4.1/bin/npm install --only=dev
             /home/c94140/.nvm/versions/node/v22.4.1/bin/npm run build
