@@ -39,8 +39,11 @@ export default function UserPage() {
           }
         />
       </Card>
-      <Spin spinning={loading}>
-        <ScoreHistoryLineChart scoreHistory={user?.scoreHistory} />
+      <Spin spinning={loading} style={{ flex: 1 }}>
+        <ScoreHistoryLineChart
+          scoreHistory={user?.scoreHistory ?? []}
+          userCreatedAt={user?.createdAt}
+        />
       </Spin>
     </ProtectedRoute>
   );

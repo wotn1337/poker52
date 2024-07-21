@@ -11,10 +11,12 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
+import zoomPlugin from "chartjs-plugin-zoom";
 import moment from "moment";
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { getChartOptions } from "./options";
+import { useMediaQuery } from "react-responsive";
 
 ChartJS.register(
   LineElement,
@@ -23,19 +25,28 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  PointElement
+  PointElement,
+  zoomPlugin
 );
 
 type Props = {
-  scoreHistory?: FullUser["scoreHistory"];
+  scoreHistory: FullUser["scoreHistory"];
+  userCreatedAt?: Date;
 };
 
-export const ScoreHistoryLineChart: React.FC<Props> = ({ scoreHistory }) => {
+export const ScoreHistoryLineChart: React.FC<Props> = ({
+  scoreHistory,
+  userCreatedAt,
+}) => {
+  const isMobile = useMediaQuery({ maxWidth: 500 });
   const data: ChartData<"line"> = {
-    labels: scoreHistory?.map((item) => moment(item.date).format("DD.MM.YYYY")),
+    labels: [
+      moment(userCreatedAt).format("DD.MM.YYYY"),
+      ...scoreHistory.map((item) => moment(item.date).format("DD.MM.YYYY")),
+    ].sort((a, b) => moment(a).diff(moment(b))),
     datasets: [
       {
-        data: scoreHistory?.map((item) => item.totalScoreAfterValue) ?? [],
+        data: [0, ...scoreHistory.map((item) => item.totalScoreAfterValue)],
         fill: false,
         borderColor: "#cf1322",
         tension: 0,
@@ -48,11 +59,7 @@ export const ScoreHistoryLineChart: React.FC<Props> = ({ scoreHistory }) => {
   return (
     <>
       <Typography.Title level={2}>График выигрышей/проигрышей</Typography.Title>
-      <Line
-        data={data}
-        options={getChartOptions(scoreHistory)}
-        style={{ width: "100%" }}
-      />
+      <Line data={data} options={getChartOptions(scoreHistory, isMobile)} />
     </>
   );
 };

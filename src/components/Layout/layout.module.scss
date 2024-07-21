@@ -4,7 +4,6 @@
   flex-direction: column;
 
   .header {
-    background-color: black;
     line-height: normal;
 
     @media screen and (max-width: 500px) {
@@ -13,15 +12,10 @@
 
     &__inner {
       height: 100%;
-      color: white;
 
       .title {
         color: white;
         margin: 0;
-      }
-
-      .username {
-        color: white;
       }
     }
   }

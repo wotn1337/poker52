@@ -18,6 +18,10 @@ export const AntdThemeProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
             dotSizeSM: 30,
             dotSizeLG: 50,
           },
+          Layout: {
+            headerBg: "black",
+            headerColor: "white",
+          },
         },
       }}
     >

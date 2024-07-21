@@ -5,6 +5,7 @@ export type BaseUser = {
   name: string;
   totalScore: number;
   isAdmin: boolean;
+  createdAt: Date;
 };
 
 export type ScoreHistoryItem = {
@@ -18,9 +19,12 @@ export type FullUser = BaseUser & {
   scoreHistory: ScoreHistoryItem[];
 };
 
-export type CreateUserParams = Omit<BaseUser, "_id" | "totalScore">;
+export type CreateUserParams = Omit<
+  BaseUser,
+  "_id" | "totalScore" | "createdAt"
+>;
 export type UpdateUserParams = Partial<
-  Omit<BaseUser, "totalScore"> & { score: number }
+  Omit<BaseUser, "totalScore" | "createdAt"> & { score: number }
 >;
 export type UpdatedUser = UpdateUserParams & { _id: string };
 export type UpdateScore = Omit<BaseUser, "name" | "isAdmin" | "totalScore"> & {
@@ -37,6 +41,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   totalScore: { type: Number, default: 0 },
   isAdmin: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
   scoreHistory: [
     {
       changeScoreValue: { type: Number, default: 0 },
