@@ -6,6 +6,7 @@ import { ArrowLeftOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card, Space, Spin, Tag, Typography } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import s from "./style.module.scss";
 
 export default function UserPage() {
   const { id } = useParams<{ id: string }>();
@@ -14,10 +15,7 @@ export default function UserPage() {
   return (
     <ProtectedRoute>
       <Link href="/">
-        <Button
-          icon={<ArrowLeftOutlined />}
-          style={{ margin: "0 auto 16px 0" }}
-        >
+        <Button icon={<ArrowLeftOutlined />} className={s.backButton}>
           На главную
         </Button>
       </Link>

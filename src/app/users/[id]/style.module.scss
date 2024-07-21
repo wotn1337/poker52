@@ -1,0 +1,7 @@
+.backButton {
+  margin: 0 auto 16px 0;
+
+  @media screen and (max-width: 500px) {
+    margin-bottom: 10px;
+  }
+}
