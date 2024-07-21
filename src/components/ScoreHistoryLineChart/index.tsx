@@ -1,5 +1,4 @@
 import { FullUser } from "@/models/User";
-import { Typography } from "antd";
 import {
   CategoryScale,
   ChartData,
@@ -15,8 +14,8 @@ import zoomPlugin from "chartjs-plugin-zoom";
 import moment from "moment";
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { getChartOptions } from "./options";
 import { useMediaQuery } from "react-responsive";
+import { getChartOptions } from "./options";
 
 ChartJS.register(
   LineElement,
@@ -56,10 +55,5 @@ export const ScoreHistoryLineChart: React.FC<Props> = ({
     ],
   };
 
-  return (
-    <>
-      <Typography.Title level={2}>График выигрышей/проигрышей</Typography.Title>
-      <Line data={data} options={getChartOptions(scoreHistory, isMobile)} />
-    </>
-  );
+  return <Line data={data} options={getChartOptions(scoreHistory, isMobile)} />;
 };

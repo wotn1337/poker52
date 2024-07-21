@@ -5,11 +5,16 @@ import { getDataLabel } from "./utils";
 export const getChartOptions = (
   scoreHistory: FullUser["scoreHistory"],
   isMobile: boolean
-): ChartOptions<"line"> => ({
+): ChartOptions<"bar"> => ({
   responsive: true,
   aspectRatio: isMobile ? 1 : 2,
   layout: {
-    padding: 30,
+    padding: {
+      top: 30,
+      bottom: 30,
+      left: 10,
+      right: 10,
+    },
   },
   plugins: {
     legend: {
@@ -51,41 +56,25 @@ export const getChartOptions = (
   },
   scales: {
     x: {
-      title: {
-        display: true,
-        text: "Дата",
-      },
-      border: {
-        display: false,
-      },
-      ticks: {
-        display: false,
-      },
+      display: false,
     },
     y: {
       title: {
-        display: true,
-        text: "Сумма выигрыша",
+        display: false,
       },
       border: {
         display: false,
       },
-      ticks: {
-        display: false,
-      },
       grid: {
-        lineWidth: (context) => {
-          if (context.tick.value === 0) {
-            return 3;
-          }
-          return 1;
-        },
         color: (context) => {
           if (context.tick.value === 0) {
             return "black";
           }
-          return "rgba(0, 0, 0, 0.1)";
+          return "transparent";
         },
+      },
+      ticks: {
+        display: false,
       },
     },
   },
