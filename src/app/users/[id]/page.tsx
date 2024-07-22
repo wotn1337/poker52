@@ -3,7 +3,12 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import { ScoreHistoryBarChart } from "@/components/ScoreHistoryBarChart";
 import { ScoreHistoryLineChart } from "@/components/ScoreHistoryLineChart";
 import { useGetUserQuery } from "@/store/api";
-import { ArrowLeftOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  BarChartOutlined,
+  LineChartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import {
   Avatar,
   Button,
@@ -14,9 +19,35 @@ import {
   Tag,
   Typography,
 } from "antd";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import zoomPlugin from "chartjs-plugin-zoom";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import s from "./style.module.scss";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  zoomPlugin,
+  ChartDataLabels,
+  LineElement,
+  PointElement
+);
 
 export default function UserPage() {
   const { id } = useParams<{ id: string }>();
@@ -26,6 +57,7 @@ export default function UserPage() {
     {
       key: "1",
       label: "По играм",
+      icon: <BarChartOutlined />,
       children: (
         <ScoreHistoryBarChart scoreHistory={user?.scoreHistory ?? []} />
       ),
@@ -33,6 +65,7 @@ export default function UserPage() {
     {
       key: "2",
       label: "Общий",
+      icon: <LineChartOutlined />,
       children: (
         <ScoreHistoryLineChart
           scoreHistory={user?.scoreHistory ?? []}
@@ -48,7 +81,7 @@ export default function UserPage() {
           На главную
         </Button>
       </Link>
-      <Space direction="vertical" size={"large"} style={{ width: "100%" }}>
+      <Space direction="vertical" size="small" style={{ width: "100%" }}>
         <Card style={{ width: "100%" }} loading={loading}>
           <Card.Meta
             avatar={<Avatar icon={<UserOutlined />} size="large" />}

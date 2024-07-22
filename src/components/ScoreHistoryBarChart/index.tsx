@@ -1,32 +1,10 @@
 import { FullUser } from "@/models/User";
-import {
-  BarElement,
-  CategoryScale,
-  ChartData,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
-import zoomPlugin from "chartjs-plugin-zoom";
+import { ChartData } from "chart.js";
 import moment from "moment";
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { useMediaQuery } from "react-responsive";
 import { getChartOptions } from "./options";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  zoomPlugin,
-  ChartDataLabels
-);
 
 type Props = {
   scoreHistory: FullUser["scoreHistory"];

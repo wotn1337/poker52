@@ -3,9 +3,10 @@ import { setAddScoreModal } from "@/store/users";
 import { DollarOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 import { useSession } from "next-auth/react";
+import { AdminActionButtonsGroup } from "./AdminActionButtonsGroup";
 import s from "./style.module.scss";
 
-export const AddCurrentUserScoreFloatButton = () => {
+export const ActionsFloatButton = () => {
   const dispatch = useAppDispatch();
   const { data: session } = useSession();
 
@@ -15,13 +16,19 @@ export const AddCurrentUserScoreFloatButton = () => {
     }
   };
 
-  return (
+  const addScoreButtonNode = (
     <FloatButton
-      icon={<DollarOutlined style={{ fontSize: 30 }} />}
+      icon={<DollarOutlined className={s.buttonIcon} />}
       onClick={handleClick}
-      className={s.addCurrentUserScoreFloatButton}
+      className={s.actionFloatButton}
       type="primary"
       tooltip="Изменить счет"
     />
   );
+
+  if (session?.user.isAdmin) {
+    return <AdminActionButtonsGroup addScoreButtonNode={addScoreButtonNode} />;
+  }
+
+  return addScoreButtonNode;
 };

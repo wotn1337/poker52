@@ -1,9 +1,9 @@
 "use client";
 
-import { Button, Flex, Form, FormProps, Input } from "antd";
+import { Button, Flex, Form, FormProps, Input, message } from "antd";
 import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Login() {
   const { data: session, status } = useSession();
@@ -13,7 +13,21 @@ export default function Login() {
     await signIn("credentials", {
       name: values.name,
       password: values.password,
-      callbackUrl: "/",
+      redirect: false,
+    }).then((res) => {
+      const getErrorText = (error: string) => {
+        switch (error) {
+          case "CredentialsSignin": {
+            return "Неверные имя или пароль";
+          }
+          default: {
+            return "Ошибка авторизации";
+          }
+        }
+      };
+      if (res?.error) {
+        message.error(getErrorText(res.error));
+      }
     });
   };
 
