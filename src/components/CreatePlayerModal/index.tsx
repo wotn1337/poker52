@@ -92,7 +92,6 @@ export const CreatePlayerModal: FC<ModalProps> = (props) => {
             </Button>
             <Button
               onClick={handleCopyNewUserData}
-              onTouchStart={handleCopyNewUserData}
               style={{ width: "100%" }}
               disabled={!newUserData}
             >
