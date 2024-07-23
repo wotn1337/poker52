@@ -29,6 +29,12 @@ export const AntdThemeProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
             fontSizeHeading1: isMobile ? 30 : 38,
             fontSizeHeading2: isMobile ? 22 : 30,
           },
+          Menu: {
+            itemBg: "transparent",
+            itemColor: "white",
+            itemHoverColor: "white",
+            activeBarHeight: 5,
+          },
         },
       }}
     >

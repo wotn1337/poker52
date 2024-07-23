@@ -4,8 +4,6 @@
   flex-direction: column;
 
   .header {
-    line-height: normal;
-
     @media screen and (max-width: 500px) {
       padding: 0 10px;
     }
@@ -13,7 +11,11 @@
     &__inner {
       height: 100%;
 
-      .title {
+      :global(.ant-space-item:first-child) {
+        line-height: normal;
+      }
+
+      :global(.header-title) {
         color: white;
         margin: 0;
       }

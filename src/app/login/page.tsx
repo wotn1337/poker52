@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Form, FormProps, Input, message } from "antd";
+import { Button, Flex, Form, FormProps, Input, message, Spin } from "antd";
 import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
@@ -36,6 +36,14 @@ export default function Login() {
       redirect("/");
     }
   }, [session]);
+
+  if (status === "loading") {
+    return (
+      <Flex justify="center" align="center" style={{ flex: 1 }}>
+        <Spin size="large" />
+      </Flex>
+    );
+  }
 
   return (
     <Flex justify="center" align="center" style={{ flex: 1 }}>

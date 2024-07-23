@@ -76,11 +76,9 @@ export default function UserPage() {
   ];
   return (
     <ProtectedRoute>
-      <Link href="/">
-        <Button icon={<ArrowLeftOutlined />} className={s.backButton}>
-          На главную
-        </Button>
-      </Link>
+      <Button icon={<ArrowLeftOutlined />} className={s.backButton} href="/">
+        На главную
+      </Button>
       <Space direction="vertical" size="small" style={{ width: "100%" }}>
         <Card style={{ width: "100%" }} loading={loading}>
           <Card.Meta
