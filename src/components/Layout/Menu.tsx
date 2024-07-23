@@ -12,6 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 import { useMediaQuery } from "react-responsive";
+import s from "./layout.module.scss";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -47,8 +48,11 @@ export const Menu: FC = () => {
       <Dropdown
         menu={{ items, activeKey: path, selectable: false }}
         trigger={["click"]}
+        overlayStyle={{ width: 200 }}
+        getPopupContainer={(node) => node}
+        className={s.menuDropdown}
       >
-        <Button icon={<MenuOutlined />} type="primary" />
+        <Button icon={<MenuOutlined />} type="primary" size="large" />
       </Dropdown>
     );
   }

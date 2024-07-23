@@ -19,6 +19,17 @@
         color: white;
         margin: 0;
       }
+
+      .menuDropdown {
+        :global(.ant-dropdown-menu-item) {
+          padding: 12px;
+          text-align: start;
+        }
+
+        :global(.ant-dropdown-menu-item-active) {
+          background-color: #fff1f0;
+        }
+      }
     }
   }
 
