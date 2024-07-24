@@ -18,7 +18,7 @@ export const Header = () => {
             height={50}
             className={s.cardsIcon}
           />
-          <Typography.Title level={1} className="header-title">
+          <Typography.Title level={1} className={s.headerTitle}>
             Покер 52
           </Typography.Title>
         </Space>

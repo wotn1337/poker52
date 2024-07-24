@@ -11,13 +11,14 @@
     &__inner {
       height: 100%;
 
-      :global(.ant-space-item:first-child) {
-        line-height: normal;
-      }
-
-      :global(.header-title) {
+      .headerTitle {
         color: white;
         margin: 0;
+        white-space: nowrap;
+      }
+
+      :global(.ant-space-item:first-child) {
+        line-height: normal;
       }
 
       .menuDropdown {
