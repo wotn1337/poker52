@@ -13,6 +13,7 @@ import {
   Avatar,
   Button,
   Card,
+  Empty,
   Space,
   Tabs,
   TabsProps,
@@ -58,18 +59,28 @@ export default function UserPage() {
       key: "1",
       label: "По играм",
       icon: <BarChartOutlined />,
-      children: (
+      children: user?.scoreHistory.length ? (
         <ScoreHistoryBarChart scoreHistory={user?.scoreHistory ?? []} />
+      ) : (
+        <Empty
+          description="Ни одной игры не сыграно"
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+        />
       ),
     },
     {
       key: "2",
       label: "Общий",
       icon: <LineChartOutlined />,
-      children: (
+      children: user?.scoreHistory.length ? (
         <ScoreHistoryLineChart
           scoreHistory={user?.scoreHistory ?? []}
           userCreatedAt={user?.createdAt}
+        />
+      ) : (
+        <Empty
+          description="Ни одной игры не сыграно"
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
         />
       ),
     },
