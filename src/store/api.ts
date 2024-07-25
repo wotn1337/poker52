@@ -6,6 +6,7 @@ import {
   CreateUserParams,
   UpdatedUser,
   FullUser,
+  UpdateScoreMutationType,
 } from "@/models/User";
 import { WinCongratulation } from "@/models/WinCongratulation";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -37,6 +38,14 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: tags,
     }),
+    updateUserScore: builder.mutation<BaseUser, UpdateScoreMutationType>({
+      query: ({ _id, score }) => ({
+        url: `users/${_id}/updateScore`,
+        method: "PATCH",
+        body: score,
+      }),
+      invalidatesTags: tags,
+    }),
     deleteUser: builder.mutation<boolean, string>({
       query: (id) => ({ url: `users/${id}`, method: "DELETE" }),
       invalidatesTags: tags,
@@ -62,4 +71,5 @@ export const {
   useLazyGetRandomWinCongratulationQuery,
   useLazyGetRandomLoseConsalationQuery,
   useGetUserQuery,
+  useUpdateUserScoreMutation,
 } = apiSlice;

@@ -1,8 +1,8 @@
+import { authOptions } from "@/lib/authOptions";
 import dbConnect from "@/lib/mongodb";
+import User from "@/models/User";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/User";
-import { authOptions } from "@/lib/authOptions";
 
 export async function GET(req: NextRequest) {
   try {
@@ -52,29 +52,10 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ message: "Invalid user ID" }, { status: 400 });
     }
 
-    const body = await req.json();
-    const { score, ...paramsToUpdate } = body;
-    const user = await User.findById(id, { totalScore: 1 });
-    const currentTotalScore = user.totalScore;
-
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      {
-        ...paramsToUpdate,
-        $inc: {
-          totalScore: score,
-        },
-        $push: {
-          scoreHistory: {
-            changeScoreValue: score,
-            totalScoreAfterValue: score + currentTotalScore,
-          },
-        },
-      },
-      {
-        new: true,
-      }
-    );
+    const paramsToUpdate = await req.json();
+    const updatedUser = await User.findByIdAndUpdate(id, paramsToUpdate, {
+      new: true,
+    });
 
     if (!updatedUser) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });

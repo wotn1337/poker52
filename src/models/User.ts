@@ -6,6 +6,12 @@ export type BaseUser = {
   totalScore: number;
   isAdmin: boolean;
   createdAt: Date;
+  currentWinStreak: number;
+  maxWinStreak: number;
+  currentLoseStreak: number;
+  maxLoseStreak: number;
+  maxWin: number;
+  maxLose: number;
 };
 
 export type ScoreHistoryItem = {
@@ -31,6 +37,10 @@ export type UpdateScore = Omit<BaseUser, "name" | "isAdmin" | "totalScore"> & {
   isWin: boolean;
   score: number;
 };
+export type UpdateScoreMutationType = {
+  _id: string;
+  score: number;
+};
 
 export type CreateUserResponse = BaseUser & {
   password: string;
@@ -49,6 +59,12 @@ const UserSchema = new mongoose.Schema({
       date: { type: Date, default: Date.now },
     },
   ],
+  currentWinStreak: { type: Number, default: 0 },
+  maxWinStreak: { type: Number, default: 0 },
+  currentLoseStreak: { type: Number, default: 0 },
+  maxLoseStreak: { type: Number, default: 0 },
+  maxWin: { type: Number, default: 0 },
+  maxLose: { type: Number, default: 0 },
 });
 
 const User = mongoose.models?.User || mongoose.model("User", UserSchema);

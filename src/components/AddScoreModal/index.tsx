@@ -1,8 +1,8 @@
-import { UpdateScore, UpdateUserParams } from "@/models/User";
+import { UpdateScore } from "@/models/User";
 import {
   useLazyGetRandomLoseConsalationQuery,
   useLazyGetRandomWinCongratulationQuery,
-  useUpdateUserMutation,
+  useUpdateUserScoreMutation,
 } from "@/store/api";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setAddScoreModal } from "@/store/users";
@@ -23,12 +23,10 @@ type Props = {};
 
 export const AddScoreModal: FC<Props> = () => {
   const [form] = Form.useForm<UpdateScore>();
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [updateScore, { isLoading }] = useUpdateUserScoreMutation();
   const { data: session } = useSession();
-  const [getLoseConsalation, { data: loseConsalation }] =
-    useLazyGetRandomLoseConsalationQuery();
-  const [getWinCongratulation, { data: winCongratulation }] =
-    useLazyGetRandomWinCongratulationQuery();
+  const [getLoseConsalation] = useLazyGetRandomLoseConsalationQuery();
+  const [getWinCongratulation] = useLazyGetRandomWinCongratulationQuery();
   const dispatch = useAppDispatch();
   const { addScoreModal } = useAppSelector((state) => state.users);
 
@@ -42,7 +40,7 @@ export const AddScoreModal: FC<Props> = () => {
     isWin,
   }) => {
     if (addScoreModal.userId) {
-      const result = await updateUser({
+      const result = await updateScore({
         _id: addScoreModal.userId,
         score: (isWin ? 1 : -1) * score,
       });
