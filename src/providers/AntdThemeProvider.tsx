@@ -28,6 +28,9 @@ export const AntdThemeProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
             itemHoverColor: "white",
             activeBarHeight: 5,
           },
+          Table: {
+            bodySortBg: "transparent",
+          },
         },
       }}
     >

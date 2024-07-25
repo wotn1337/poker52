@@ -41,6 +41,16 @@ export const useLeaderboardColumns = () => {
       title: "Залутано / Слито",
       dataIndex: "totalScore",
       key: "totalScore",
+      sortDirections: ["descend", "descend"],
+      sorter: (a, b) => a.totalScore - b.totalScore,
+      defaultSortOrder: "descend",
+    },
+    {
+      title: "Макс. лут",
+      dataIndex: "maxWin",
+      key: "maxWin",
+      sortDirections: ["descend", "descend"],
+      sorter: (a, b) => a.maxWin - b.maxWin,
     },
   ];
 
