@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import User, { FullUser } from "@/models/User";
+import User, { FullUser, ScoreHistoryItem } from "@/models/User";
 import { authOptions } from "@/lib/authOptions";
 
 export async function PATCH(req: NextRequest) {
@@ -37,6 +37,24 @@ export async function PATCH(req: NextRequest) {
     const newMaxLoseStreak = Math.max(newLoseStreak, maxLoseStreak);
     const newMaxWin = Math.max(score, maxWin);
     const newMaxLose = Math.min(score, maxLose);
+
+    const today = new Date().toISOString().split("T")[0];
+
+    const existingEntry = user.scoreHistory.find(
+      (entry: ScoreHistoryItem) =>
+        entry.date.toISOString().split("T")[0] === today
+    );
+
+    if (existingEntry) {
+      existingEntry.changeScoreValue += score;
+      existingEntry.totalScoreAfterValue += score;
+    } else {
+      user.scoreHistory.push({
+        changeScoreValue: score,
+        totalScoreAfterValue: score + totalScore,
+      });
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       id,
       {
@@ -46,14 +64,9 @@ export async function PATCH(req: NextRequest) {
         maxLoseStreak: newMaxLoseStreak,
         maxWin: newMaxWin,
         maxLose: newMaxLose,
+        scoreHistory: user.scoreHistory,
         $inc: {
           totalScore: score,
-        },
-        $push: {
-          scoreHistory: {
-            changeScoreValue: score,
-            totalScoreAfterValue: score + totalScore,
-          },
         },
       },
       {
