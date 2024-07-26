@@ -2,12 +2,13 @@
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { ScoreHistoryBarChart } from "@/components/ScoreHistoryBarChart";
 import { ScoreHistoryLineChart } from "@/components/ScoreHistoryLineChart";
+import { UserStatistics } from "@/components/UserStatistics";
 import { useGetUserQuery } from "@/store/api";
 import {
   ArrowLeftOutlined,
   BarChartOutlined,
   LineChartOutlined,
-  UserOutlined,
+  SmileOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -17,7 +18,6 @@ import {
   Space,
   Tabs,
   TabsProps,
-  Tag,
   Typography,
 } from "antd";
 import {
@@ -33,7 +33,6 @@ import {
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import zoomPlugin from "chartjs-plugin-zoom";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import s from "./style.module.scss";
 
@@ -91,25 +90,16 @@ export default function UserPage() {
         На главную
       </Button>
       <Space direction="vertical" size="small" style={{ width: "100%" }}>
-        <Card style={{ width: "100%" }} loading={loading}>
-          <Card.Meta
-            avatar={<Avatar icon={<UserOutlined />} size="large" />}
-            title={user?.name}
-            description={
-              user?.totalScore ? (
-                <Space size="small" align="center">
-                  <Typography.Text>
-                    Общий {user.totalScore >= 0 ? "выигрыш" : "проигрыш"}:
-                  </Typography.Text>
-                  <Tag color={user.totalScore >= 0 ? "green" : "red"}>
-                    {user.totalScore}
-                  </Tag>
-                </Space>
-              ) : undefined
-            }
-          />
+        <Card loading={loading}>
+          <Space size="middle" align="center">
+            <SmileOutlined style={{ color: "#fa8c16", fontSize: 30 }} />
+            <Typography.Title level={2} style={{ margin: 0 }}>
+              {user?.name}
+            </Typography.Title>
+          </Space>
         </Card>
-        <Card style={{ width: "100%" }} loading={loading}>
+        <UserStatistics loading={loading} user={user} />
+        <Card loading={loading}>
           <Typography.Title level={2} style={{ marginTop: 0 }}>
             Винстрик я иду без поражений
           </Typography.Title>
