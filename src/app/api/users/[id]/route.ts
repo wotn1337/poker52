@@ -52,6 +52,10 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ message: "Invalid user ID" }, { status: 400 });
     }
 
+    if (session.user.id !== id && !session.user.isAdmin) {
+      return NextResponse.json({ message: "Нет доступа" }, { status: 401 });
+    }
+
     const paramsToUpdate = await req.json();
     const updatedUser = await User.findByIdAndUpdate(id, paramsToUpdate, {
       new: true,

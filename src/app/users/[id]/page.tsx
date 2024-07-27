@@ -2,24 +2,15 @@
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { ScoreHistoryBarChart } from "@/components/ScoreHistoryBarChart";
 import { ScoreHistoryLineChart } from "@/components/ScoreHistoryLineChart";
+import { UserProfileTitle } from "@/components/UserProfileTitle";
 import { UserStatistics } from "@/components/UserStatistics";
 import { useGetUserQuery } from "@/store/api";
 import {
   ArrowLeftOutlined,
   BarChartOutlined,
   LineChartOutlined,
-  SmileOutlined,
 } from "@ant-design/icons";
-import {
-  Avatar,
-  Button,
-  Card,
-  Empty,
-  Space,
-  Tabs,
-  TabsProps,
-  Typography,
-} from "antd";
+import { Button, Card, Empty, Space, Tabs, TabsProps, Typography } from "antd";
 import {
   BarElement,
   CategoryScale,
@@ -90,14 +81,7 @@ export default function UserPage() {
         На главную
       </Button>
       <Space direction="vertical" size="small" style={{ width: "100%" }}>
-        <Card loading={loading}>
-          <Space size="middle" align="center">
-            <SmileOutlined style={{ color: "#fa8c16", fontSize: 30 }} />
-            <Typography.Title level={2} style={{ margin: 0 }}>
-              {user?.name}
-            </Typography.Title>
-          </Space>
-        </Card>
+        <UserProfileTitle user={user} loading={loading} />
         <UserStatistics loading={loading} user={user} />
         <Card loading={loading}>
           <Typography.Title level={2} style={{ marginTop: 0 }}>

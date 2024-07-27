@@ -4,7 +4,7 @@ import s from "@/components/Leaderboard/leaderbord.module.scss";
 import { getPlaceCellContent } from "@/lib/getPlaceCellContent";
 import { BaseUser } from "@/models/User";
 import { FireFilled } from "@ant-design/icons";
-import { Space, TableProps, Tooltip } from "antd";
+import { Avatar, Space, TableProps, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
@@ -28,12 +28,17 @@ export const useLeaderboardColumns = () => {
       key: "name",
       render: (name, user) => (
         <Space align="center">
-          <Link href={`users/${user._id}`}>{name}</Link>
           {user.currentWinStreak >= 5 && (
             <Tooltip title={`Винстрик: ${user.currentWinStreak}`}>
               <FireFilled style={{ color: "#fa8c16", fontSize: 22 }} />
             </Tooltip>
           )}
+          <Link href={`users/${user._id}`}>
+            <Space>
+              {user.avatar && <Avatar src={user.avatar} size="small" />}
+              {name}
+            </Space>
+          </Link>
         </Space>
       ),
     },

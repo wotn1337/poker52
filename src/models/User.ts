@@ -12,6 +12,7 @@ export type BaseUser = {
   maxLoseStreak: number;
   maxWin: number;
   maxLose: number;
+  avatar: string | null;
 };
 
 export type ScoreHistoryItem = {
@@ -29,9 +30,7 @@ export type CreateUserParams = Omit<
   BaseUser,
   "_id" | "totalScore" | "createdAt"
 >;
-export type UpdateUserParams = Partial<
-  Omit<BaseUser, "totalScore" | "createdAt"> & { score: number }
->;
+export type UpdateUserParams = Partial<Omit<BaseUser, "createdAt">>;
 export type UpdatedUser = UpdateUserParams & { _id: string };
 export type UpdateScore = Omit<BaseUser, "name" | "isAdmin" | "totalScore"> & {
   isWin: boolean;
@@ -65,6 +64,7 @@ const UserSchema = new mongoose.Schema({
   maxLoseStreak: { type: Number, default: 0 },
   maxWin: { type: Number, default: 0 },
   maxLose: { type: Number, default: 0 },
+  avatar: { type: String, default: null },
 });
 
 const User = mongoose.models?.User || mongoose.model("User", UserSchema);

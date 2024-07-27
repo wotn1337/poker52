@@ -55,7 +55,7 @@ const CardCol: FC<CardProps> = (props) => {
 export const UserStatistics: FC<Props> = ({ loading, user }) => {
   return (
     <Row gutter={[8, 8]} align="stretch">
-      <Col flex="auto" span={16}>
+      <Col flex="auto" span={16} md={6}>
         <Card loading={loading}>
           <Statistic
             title="Залутано / слито"
@@ -66,12 +66,12 @@ export const UserStatistics: FC<Props> = ({ loading, user }) => {
           />
         </Card>
       </Col>
-      <Col flex="auto" span={16}>
+      <Col flex="auto" span={16} md={6}>
         <Card loading={loading}>
           <Statistic title="Макс. лут" value={user?.maxWin} />
         </Card>
       </Col>
-      <Col span={16}>
+      <Col span={16} md={6}>
         <Card loading={loading}>
           <Statistic
             title="Процент побед"

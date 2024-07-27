@@ -4,6 +4,7 @@ import s from "./leaderbord.module.scss";
 import { useGetUsersQuery } from "@/store/api";
 import { useLeaderboardColumns } from "@/hooks/useLeaderboardColumns";
 import { useSession } from "next-auth/react";
+import cn from "classnames";
 
 type Props = {
   players: any[];
@@ -27,8 +28,9 @@ export const Leaderboard = () => {
         loading={isLoading || isFetching}
         rowKey="_id"
         onRow={(record) => ({
-          className:
-            record._id === session?.user.id ? s.currentUserRow : undefined,
+          className: cn({
+            [s.currentUserRow]: record._id === session?.user.id,
+          }),
         })}
         scroll={{ x: "100%" }}
       />

@@ -20,6 +20,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getUser: builder.query<FullUser, string>({
       query: (id) => ({ url: `users/${id}`, method: "GET" }),
+      providesTags: (_, __, id) => [{ type: "User", id }],
     }),
     getUsers: builder.query<BaseUser[], void>({
       query: () => ({ url: "users", method: "GET" }),
@@ -36,7 +37,7 @@ export const apiSlice = createApi({
         method: "PATCH",
         body,
       }),
-      invalidatesTags: tags,
+      invalidatesTags: (_, __, { _id }) => [{ type: "User", id: _id }],
     }),
     updateUserScore: builder.mutation<BaseUser, UpdateScoreMutationType>({
       query: ({ _id, score }) => ({
