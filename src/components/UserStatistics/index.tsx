@@ -28,6 +28,7 @@ const Statistic: FC<StatisticProps & { reverseColor?: boolean }> = ({
     valueStyle={{
       color: getProfileStatisticColor(Number(props.value), reverseColor),
     }}
+    groupSeparator="&thinsp;"
     {...props}
   />
 );

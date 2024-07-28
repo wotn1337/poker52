@@ -65,7 +65,8 @@ export const UserProfileTitle: FC<Props> = ({ loading, user }) => {
       <Space size="middle" align="center">
         <Avatar
           size={100}
-          icon={<SmileOutlined style={{ color: "#fa8c16", fontSize: 30 }} />}
+          icon={<SmileOutlined style={{ color: "#fa8c16", fontSize: 100 }} />}
+          style={{ backgroundColor: "white" }}
           src={user?.avatar}
         />
         <Space direction="vertical" size="small">
