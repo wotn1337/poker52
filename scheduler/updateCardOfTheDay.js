@@ -1,6 +1,9 @@
 const { MongoClient } = require("mongodb");
 const { mongoURI, collectionName } = require("./config");
 
+console.log("mongoURI: ", mongoURI);
+console.log("collectionName: ", collectionName);
+
 async function updateCardOfTheDay() {
   const client = new MongoClient(mongoURI);
 
