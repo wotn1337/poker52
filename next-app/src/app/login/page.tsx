@@ -35,7 +35,7 @@ export default function Login() {
     if (status === "authenticated") {
       redirect("/");
     }
-  }, [session]);
+  }, [status]);
 
   if (status === "loading") {
     return (

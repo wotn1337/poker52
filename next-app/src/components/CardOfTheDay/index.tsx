@@ -1,6 +1,7 @@
 import { useGetCardOfTheDayQuery } from "@/store/api";
-import { FloatButton } from "antd";
+import { FloatButton, Spin } from "antd";
 import s from "./CardOfTheDay.module.scss";
+import Image from "next/image";
 
 export const CardOfTheDay = () => {
   const { data: cardOfTheDay } = useGetCardOfTheDayQuery();
@@ -8,12 +9,16 @@ export const CardOfTheDay = () => {
   return (
     <FloatButton
       icon={
-        <img
-          src={cardOfTheDay?.image}
-          alt="card of the day"
-          height={50}
-          width={48}
-        />
+        !cardOfTheDay?.image ? (
+          <Spin size="small" />
+        ) : (
+          <Image
+            src={cardOfTheDay.image}
+            alt="card of the day"
+            height={50}
+            width={48}
+          />
+        )
       }
       tooltip="Карта дня"
       shape="square"
