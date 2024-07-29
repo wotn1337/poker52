@@ -1,3 +1,4 @@
+import { Card } from "@/models/Card";
 import { LoseConsalation } from "@/models/LoseConsalation";
 import { Quote } from "@/models/Quote";
 import {
@@ -60,6 +61,9 @@ export const apiSlice = createApi({
     getRandomLoseConsalation: builder.query<LoseConsalation, void>({
       query: () => ({ url: "loseConsalations", method: "GET" }),
     }),
+    getCardOfTheDay: builder.query<Card, void>({
+      query: () => ({ url: "cards/cardOfTheDay", method: "GET" }),
+    }),
   }),
 });
 
@@ -73,4 +77,5 @@ export const {
   useLazyGetRandomLoseConsalationQuery,
   useGetUserQuery,
   useUpdateUserScoreMutation,
+  useGetCardOfTheDayQuery,
 } = apiSlice;

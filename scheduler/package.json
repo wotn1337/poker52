@@ -1,0 +1,16 @@
+{
+  "name": "scheduler",
+  "version": "0.1.0",
+  "description": "scheduler for updating card of the day",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^3.1.7",
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.8.0"
+  }
+}

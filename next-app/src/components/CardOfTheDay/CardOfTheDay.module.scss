@@ -1,0 +1,16 @@
+.cardOfTheDay.cardOfTheDay {
+  inset-block-end: 120px;
+  inset-inline-end: 26px;
+  width: 56px;
+
+  :global {
+    .ant-float-btn-icon.ant-float-btn-icon.ant-float-btn-icon {
+      width: 100%;
+      line-height: 0;
+    }
+
+    .ant-float-btn-content.ant-float-btn-content {
+      padding: 8px 4px;
+    }
+  }
+}
