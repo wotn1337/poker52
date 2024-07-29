@@ -1,8 +1,9 @@
 const cron = require("cron");
 const updateCardOfTheDay = require("./updateCardOfTheDay");
 
-const job = new cron.CronJob("*/10 * * * * *", async () => {
-  console.log("Обновление cardOfTheDay...");
+// Настройка задания на запуск каждый день в 00:00
+const job = new cron.CronJob("0 0 * * *", async () => {
+  console.log("Обновление cardOfTheDay в 00:00...");
   await updateCardOfTheDay();
 });
 

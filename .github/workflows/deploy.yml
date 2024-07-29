@@ -32,12 +32,12 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use --lts
-            cd poker52.na4u.ru/app
+            cd poker52.na4u.ru/app/next-app
             git pull origin main
             npm -v
             npm install
             npm install --only=dev
             npm run build
-            cd ..
+            cd ../..
             touch reload
           EOF
