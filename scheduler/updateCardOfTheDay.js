@@ -30,11 +30,14 @@ async function updateCardOfTheDay() {
         { $set: { cardOfTheDay: true } }
       );
     }
+    console.log("Карта дня успешно обновлена");
   } catch (err) {
     console.error("Ошибка при обновлении cardOfTheDay:", err);
   } finally {
     await client.close();
   }
 }
+
+updateCardOfTheDay();
 
 module.exports = updateCardOfTheDay;
