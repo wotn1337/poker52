@@ -35,8 +35,7 @@ jobs:
             cd poker52.na4u.ru/app
             git pull origin main
             npm -v
-            npm install
-            npm install --only=dev
+            npm i
             npm run build
             cd ..
             touch reload

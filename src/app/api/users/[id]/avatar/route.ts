@@ -1,11 +1,19 @@
 import { authOptions } from "@/lib/authOptions";
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
-import { unlink, writeFile } from "fs/promises";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { join } from "path";
+import SftpClient from "ssh2-sftp-client";
 import { v4 as uuid } from "uuid";
+
+const config = {
+  host: process.env.IMAGE_STORAGE_HOST,
+  port: 22,
+  username: process.env.IMAGE_STORAGE_USERNAME,
+  password: process.env.IMAGE_STORAGE_PASSWORD,
+};
+
+const sftp = new SftpClient();
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,8 +24,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const { pathname: path } = new URL(req.url);
-    const id = path.split("/").slice(-2, -1)[0];
+    const { pathname } = new URL(req.url);
+    const id = pathname.split("/").slice(-2, -1)[0];
 
     if (!id) {
       return NextResponse.json({ message: "Invalid user ID" }, { status: 400 });
@@ -30,19 +38,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    const buffer = await file.arrayBuffer();
-    const bufferArray = new Uint8Array(buffer);
-
+    const buffer = Buffer.from(await file.arrayBuffer());
     const uniqueFileName = `${uuid()}${file.name.slice(
       file.name.lastIndexOf(".")
     )}`;
-    const filePath = join(process.cwd(), "public", "uploads", uniqueFileName);
-
-    await writeFile(filePath, bufferArray);
+    const remoteFilePath = `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${uniqueFileName}`;
+    await sftp.connect(config);
+    await sftp.put(buffer, remoteFilePath);
+    await sftp.end();
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { avatar: `/uploads/${uniqueFileName}` },
+      { avatar: `${process.env.IMAGE_STORAGE_URI}/${uniqueFileName}` },
       { new: true }
     );
 
@@ -77,13 +84,13 @@ export async function DELETE(req: NextRequest) {
     }
 
     const user = await User.findById(id);
-    const avatarFileName = user.avatar.replace("/uploads", "");
+    const avatarFileName = user.avatar.split("/").slice(-1);
 
-    // Определение полного пути к файлу
-    const filePath = join(process.cwd(), "public", "uploads", avatarFileName);
-
-    // Удаление файла
-    await unlink(filePath);
+    await sftp.connect(config);
+    await sftp.delete(
+      `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${avatarFileName}`
+    );
+    await sftp.end();
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
