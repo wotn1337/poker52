@@ -8,6 +8,7 @@ import {
   UpdatedUser,
   FullUser,
   UpdateScoreMutationType,
+  UploadAvatar,
 } from "@/models/User";
 import { WinCongratulation } from "@/models/WinCongratulation";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -48,6 +49,23 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: tags,
     }),
+    uploadAvatar: builder.mutation<FullUser, FormData>({
+      query: (body) => ({
+        url: `users/${body.get("id")}/avatar`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: (_, __, body) => [
+        { type: "User", id: body.get("id")?.toString() },
+      ],
+    }),
+    deleteAvatar: builder.mutation<FullUser, string>({
+      query: (id) => ({
+        url: `users/${id}/avatar`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_, __, id) => [{ type: "User", id }],
+    }),
     deleteUser: builder.mutation<boolean, string>({
       query: (id) => ({ url: `users/${id}`, method: "DELETE" }),
       invalidatesTags: tags,
@@ -78,4 +96,6 @@ export const {
   useGetUserQuery,
   useUpdateUserScoreMutation,
   useGetCardOfTheDayQuery,
+  useUploadAvatarMutation,
+  useDeleteAvatarMutation,
 } = apiSlice;

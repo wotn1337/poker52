@@ -40,6 +40,10 @@ export type UpdateScoreMutationType = {
   _id: string;
   score: number;
 };
+export type UploadAvatar = {
+  _id: string;
+  avatar: Blob;
+};
 
 export type CreateUserResponse = BaseUser & {
   password: string;

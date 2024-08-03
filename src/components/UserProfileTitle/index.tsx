@@ -1,5 +1,9 @@
 import { FullUser } from "@/models/User";
-import { useUpdateUserMutation } from "@/store/api";
+import {
+  useDeleteAvatarMutation,
+  useUpdateUserMutation,
+  useUploadAvatarMutation,
+} from "@/store/api";
 import { SmileOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card, message, Space, Typography, Upload } from "antd";
 import { RcFile, UploadProps } from "antd/es/upload";
@@ -20,10 +24,13 @@ const acceptFileTypes = [
 ];
 
 export const UserProfileTitle: FC<Props> = ({ loading, user }) => {
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [deleteAvatar, { isLoading: deleting }] = useDeleteAvatarMutation();
+  const [uploadAvatar, { isLoading: uploading }] = useUploadAvatarMutation();
+  const isLoading = deleting || uploading;
   const { data: session } = useSession();
   const showUploadAvatar =
     session?.user.id === user?._id || session?.user.isAdmin;
+
   const beforeUpload: UploadProps["beforeUpload"] = (file) => {
     const isFileTypeAccepted = acceptFileTypes.includes(file.type);
     if (!isFileTypeAccepted) {
@@ -31,33 +38,31 @@ export const UserProfileTitle: FC<Props> = ({ loading, user }) => {
     }
     const isLt5M = file.size / 1024 / 1024 < 5;
     if (!isLt5M) {
-      message.error("Картинка должна весить меньше 2МБ");
+      message.error("Картинка должна весить меньше 5МБ");
     }
     return isFileTypeAccepted && isLt5M;
   };
 
   const customRequest: UploadProps["customRequest"] = async (options) => {
     const { file } = options;
+    if (user?._id) {
+      const formData = new FormData();
+      formData.append("id", user._id);
+      formData.append("avatar", file);
+      uploadAvatar(formData)
+        .then(() => {
+          message.success("Аватар успешно изменен");
+        })
+        .catch(() => {
+          message.error("Failed to upload avatar!");
+        });
+    }
+  };
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file as RcFile);
-    reader.onload = async () => {
-      const avatar = reader.result as string;
-
-      try {
-        if (user?._id) {
-          updateUser({ _id: user._id, avatar })
-            .then(() => {
-              message.success("Аватар успешно изменен");
-            })
-            .catch(() => {
-              message.error("Failed to upload avatar!");
-            });
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const handleDelete = () => {
+    if (user?._id) {
+      deleteAvatar(user._id);
+    }
   };
 
   return (
@@ -83,6 +88,11 @@ export const UserProfileTitle: FC<Props> = ({ loading, user }) => {
             >
               <Button>Сменить аватар</Button>
             </Upload>
+          )}
+          {user?.avatar && (
+            <Button onClick={handleDelete} disabled={!user?.avatar}>
+              Удалить аватар
+            </Button>
           )}
         </Space>
       </Space>
