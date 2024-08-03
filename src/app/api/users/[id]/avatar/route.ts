@@ -13,8 +13,6 @@ const config = {
   password: process.env.IMAGE_STORAGE_PASSWORD,
 };
 
-const sftp = new SftpClient();
-
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
@@ -43,6 +41,8 @@ export async function POST(req: NextRequest) {
       file.name.lastIndexOf(".")
     )}`;
     const remoteFilePath = `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${uniqueFileName}`;
+
+    const sftp = new SftpClient();
     await sftp.connect(config);
     await sftp.put(buffer, remoteFilePath);
     await sftp.end();
@@ -86,6 +86,7 @@ export async function DELETE(req: NextRequest) {
     const user = await User.findById(id);
     const avatarFileName = user.avatar.split("/").slice(-1);
 
+    const sftp = new SftpClient();
     await sftp.connect(config);
     await sftp.delete(
       `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${avatarFileName}`
