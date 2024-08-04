@@ -3,7 +3,7 @@ import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import SftpClient from "ssh2-sftp-client";
+import SftpClient from "node-sftp-client";
 import { v4 as uuid } from "uuid";
 
 const config = {
@@ -12,6 +12,8 @@ const config = {
   username: process.env.IMAGE_STORAGE_USERNAME,
   password: process.env.IMAGE_STORAGE_PASSWORD,
 };
+
+const sftp = new SftpClient();
 
 export async function POST(req: NextRequest) {
   try {
@@ -42,7 +44,6 @@ export async function POST(req: NextRequest) {
     )}`;
     const remoteFilePath = `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${uniqueFileName}`;
 
-    const sftp = new SftpClient();
     await sftp.connect(config);
     await sftp.put(buffer, remoteFilePath);
     await sftp.end();
@@ -86,7 +87,6 @@ export async function DELETE(req: NextRequest) {
     const user = await User.findById(id);
     const avatarFileName = user.avatar.split("/").slice(-1);
 
-    const sftp = new SftpClient();
     await sftp.connect(config);
     await sftp.delete(
       `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${avatarFileName}`
