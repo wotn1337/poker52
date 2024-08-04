@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
     )}`;
     const remoteFilePath = `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${uniqueFileName}`;
 
+    console.log(config);
     await sftp.connect(config);
     await sftp.put(buffer, remoteFilePath);
     await sftp.end();
@@ -87,6 +88,7 @@ export async function DELETE(req: NextRequest) {
     const user = await User.findById(id);
     const avatarFileName = user.avatar.split("/").slice(-1);
 
+    console.log(config);
     await sftp.connect(config);
     await sftp.delete(
       `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${avatarFileName}`
