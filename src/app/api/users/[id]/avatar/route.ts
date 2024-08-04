@@ -15,6 +15,9 @@ const config = {
 
 const sftp = new SftpClient();
 
+const getRemoteFilePath = (fileName: string) =>
+  `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${fileName}`;
+
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
@@ -30,6 +33,7 @@ export async function POST(req: NextRequest) {
     if (!id) {
       return NextResponse.json({ message: "Invalid user ID" }, { status: 400 });
     }
+    const user = await User.findById(id);
 
     const formData = await req.formData();
     const file = formData.get("avatar") as File;
@@ -42,16 +46,19 @@ export async function POST(req: NextRequest) {
     const uniqueFileName = `${uuid()}${file.name.slice(
       file.name.lastIndexOf(".")
     )}`;
-    const remoteFilePath = `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${uniqueFileName}`;
+    const remoteFilePath = getRemoteFilePath(uniqueFileName);
 
     console.log(config);
     await sftp.connect(config);
+    if (user.avatar) {
+      await sftp.delete(getRemoteFilePath(user.avatar));
+    }
     await sftp.put(buffer, remoteFilePath);
     await sftp.end();
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { avatar: `${process.env.IMAGE_STORAGE_URI}/${uniqueFileName}` },
+      { avatar: uniqueFileName },
       { new: true }
     );
 
@@ -86,13 +93,10 @@ export async function DELETE(req: NextRequest) {
     }
 
     const user = await User.findById(id);
-    const avatarFileName = user.avatar.split("/").slice(-1);
 
     console.log(config);
     await sftp.connect(config);
-    await sftp.delete(
-      `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${avatarFileName}`
-    );
+    await sftp.delete(getRemoteFilePath(user.avatar));
     await sftp.end();
 
     const updatedUser = await User.findByIdAndUpdate(
