@@ -33,6 +33,7 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use --lts
             cd poker52.na4u.ru/app
+            git reset --hard
             git pull origin main
             npm -v
             npm i
