@@ -4,7 +4,7 @@ import s from "./CardOfTheDay.module.scss";
 import Image from "next/image";
 
 export const CardOfTheDay = () => {
-  const { data: cardOfTheDay } = useGetCardOfTheDayQuery();
+  const { data: cardOfTheDay } = useGetCardOfTheDayQuery(new Date());
 
   return (
     <FloatButton
