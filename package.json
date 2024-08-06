@@ -1,6 +1,6 @@
 {
   "name": "poker-app",
-  "version": "1.16.7",
+  "version": "1.16.8",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -19,8 +19,10 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-zoom": "^2.0.1",
     "classnames": "^2.5.1",
+    "dotenv": "^16.4.5",
     "generate-password": "^1.7.1",
     "moment": "^2.30.1",
+    "mongodb": "^6.8.0",
     "mongoose": "^8.5.1",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
