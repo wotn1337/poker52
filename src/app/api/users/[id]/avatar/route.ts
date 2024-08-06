@@ -1,22 +1,11 @@
 import { authOptions } from "@/lib/authOptions";
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
+import fs from "fs";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import SftpClient from "node-sftp-client";
+import path from "path";
 import { v4 as uuid } from "uuid";
-
-const config = {
-  host: process.env.IMAGE_STORAGE_HOST,
-  port: 22,
-  username: process.env.IMAGE_STORAGE_USERNAME,
-  password: process.env.IMAGE_STORAGE_PASSWORD,
-};
-
-const sftp = new SftpClient();
-
-const getRemoteFilePath = (fileName: string) =>
-  `/datastorage/${process.env.IMAGE_STORAGE_USERNAME}/${fileName}`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -42,19 +31,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
+    if (user.avatar) {
+      const oldAvatarPath = path.join(process.cwd(), "uploads", user.avatar);
+      fs.unlink(oldAvatarPath, (error) => {
+        if (error) {
+          return NextResponse.json(
+            { message: "Ошибка удаления старого аватара" },
+            { status: 500 }
+          );
+        }
+      });
+    }
+
     const buffer = Buffer.from(await file.arrayBuffer());
     const uniqueFileName = `${uuid()}${file.name.slice(
       file.name.lastIndexOf(".")
     )}`;
-    const remoteFilePath = getRemoteFilePath(uniqueFileName);
 
-    console.log(config);
-    await sftp.connect(config);
-    if (user.avatar) {
-      await sftp.delete(getRemoteFilePath(user.avatar));
-    }
-    await sftp.put(buffer, remoteFilePath);
-    await sftp.end();
+    const filePath = path.join(process.cwd(), "uploads", uniqueFileName);
+    fs.writeFile(filePath, buffer, (error) => {
+      if (error) {
+        return NextResponse.json(
+          { message: "Ошибка сохранения файла" },
+          { status: 500 }
+        );
+      }
+    });
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
@@ -85,8 +87,8 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const { pathname: path } = new URL(req.url);
-    const id = path.split("/").slice(-2, -1)[0];
+    const { pathname } = new URL(req.url);
+    const id = pathname.split("/").slice(-2, -1)[0];
 
     if (!id) {
       return NextResponse.json({ message: "Invalid user ID" }, { status: 400 });
@@ -94,10 +96,17 @@ export async function DELETE(req: NextRequest) {
 
     const user = await User.findById(id);
 
-    console.log(config);
-    await sftp.connect(config);
-    await sftp.delete(getRemoteFilePath(user.avatar));
-    await sftp.end();
+    if (user.avatar) {
+      const oldAvatarPath = path.join(process.cwd(), "uploads", user.avatar);
+      fs.unlink(oldAvatarPath, (error) => {
+        if (error) {
+          return NextResponse.json(
+            { message: "Ошибка удаления старого аватара" },
+            { status: 500 }
+          );
+        }
+      });
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       id,

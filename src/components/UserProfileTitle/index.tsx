@@ -72,7 +72,7 @@ export const UserProfileTitle: FC<Props> = ({ loading, user }) => {
           size={100}
           icon={<SmileOutlined style={{ color: "#fa8c16", fontSize: 100 }} />}
           style={{ backgroundColor: "white" }}
-          src={`${process.env.IMAGE_STORAGE_URI}/${user?.avatar}`}
+          src={`/api/uploads/${user?.avatar}`}
         />
         <Space direction="vertical" size="small">
           <Typography.Title level={2} style={{ margin: 0 }}>

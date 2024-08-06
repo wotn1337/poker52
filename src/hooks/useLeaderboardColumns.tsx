@@ -36,10 +36,7 @@ export const useLeaderboardColumns = () => {
           <Link href={`users/${user._id}`}>
             <Space>
               {user.avatar && (
-                <Avatar
-                  src={`${process.env.IMAGE_STORAGE_URI}/${user.avatar}`}
-                  size="small"
-                />
+                <Avatar src={`/api/uploads/${user.avatar}`} size="small" />
               )}
               {name}
             </Space>

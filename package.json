@@ -1,6 +1,6 @@
 {
   "name": "poker-app",
-  "version": "1.16.6",
+  "version": "1.16.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -24,7 +24,6 @@
     "mongoose": "^8.5.1",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
-    "node-sftp-client": "^2.3.2",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
