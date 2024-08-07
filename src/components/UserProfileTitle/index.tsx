@@ -1,12 +1,8 @@
 import { FullUser } from "@/models/User";
-import {
-  useDeleteAvatarMutation,
-  useUpdateUserMutation,
-  useUploadAvatarMutation,
-} from "@/store/api";
+import { useDeleteAvatarMutation, useUploadAvatarMutation } from "@/store/api";
 import { SmileOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card, message, Space, Typography, Upload } from "antd";
-import { RcFile, UploadProps } from "antd/es/upload";
+import { UploadProps } from "antd/es/upload";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 
@@ -28,7 +24,7 @@ export const UserProfileTitle: FC<Props> = ({ loading, user }) => {
   const [uploadAvatar, { isLoading: uploading }] = useUploadAvatarMutation();
   const isLoading = deleting || uploading;
   const { data: session } = useSession();
-  const showUploadAvatar =
+  const showAvatarControls =
     session?.user.id === user?._id || session?.user.isAdmin;
 
   const beforeUpload: UploadProps["beforeUpload"] = (file) => {
@@ -72,27 +68,29 @@ export const UserProfileTitle: FC<Props> = ({ loading, user }) => {
           size={100}
           icon={<SmileOutlined style={{ color: "#fa8c16", fontSize: 100 }} />}
           style={{ backgroundColor: "white" }}
-          src={`/api/uploads/${user?.avatar}`}
+          src={user?.avatar ? `/api/uploads/${user.avatar}` : undefined}
         />
         <Space direction="vertical" size="small">
           <Typography.Title level={2} style={{ margin: 0 }}>
             {user?.name}
           </Typography.Title>
-          {showUploadAvatar && (
-            <Upload
-              showUploadList={false}
-              accept={acceptFileTypes.join(",")}
-              maxCount={1}
-              beforeUpload={beforeUpload}
-              customRequest={customRequest}
-            >
-              <Button>Сменить аватар</Button>
-            </Upload>
-          )}
-          {user?.avatar && (
-            <Button onClick={handleDelete} disabled={!user?.avatar}>
-              Удалить аватар
-            </Button>
+          {showAvatarControls && (
+            <Space wrap>
+              <Upload
+                showUploadList={false}
+                accept={acceptFileTypes.join(",")}
+                maxCount={1}
+                beforeUpload={beforeUpload}
+                customRequest={customRequest}
+              >
+                <Button>Сменить аватар</Button>
+              </Upload>
+              {user?.avatar && (
+                <Button onClick={handleDelete} disabled={!user?.avatar} danger>
+                  Удалить аватар
+                </Button>
+              )}
+            </Space>
           )}
         </Space>
       </Space>

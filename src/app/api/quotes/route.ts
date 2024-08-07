@@ -1,9 +1,11 @@
 "use server";
 import dbConnect from "@/lib/mongodb";
 import Quote from "@/models/Quote";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+  revalidateTag("random-quote");
   try {
     await dbConnect();
     const count = await Quote.countDocuments();

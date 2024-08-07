@@ -3,12 +3,11 @@ import { LoseConsalation } from "@/models/LoseConsalation";
 import { Quote } from "@/models/Quote";
 import {
   BaseUser,
-  CreateUserResponse,
   CreateUserParams,
-  UpdatedUser,
+  CreateUserResponse,
   FullUser,
+  UpdatedUser,
   UpdateScoreMutationType,
-  UploadAvatar,
 } from "@/models/User";
 import { WinCongratulation } from "@/models/WinCongratulation";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -71,16 +70,32 @@ export const apiSlice = createApi({
       invalidatesTags: tags,
     }),
     getRandomQuote: builder.query<Quote, void>({
-      query: () => ({ url: "quotes", method: "GET" }),
+      query: () => ({
+        url: "quotes",
+        method: "GET",
+        next: { tags: ["random-quote"] },
+      }),
     }),
     getRandomWinCongratulation: builder.query<WinCongratulation, void>({
-      query: () => ({ url: "winCongratulations", method: "GET" }),
+      query: () => ({
+        url: "winCongratulations",
+        method: "GET",
+        next: { tags: ["random-win-congratulations"] },
+      }),
     }),
     getRandomLoseConsalation: builder.query<LoseConsalation, void>({
-      query: () => ({ url: "loseConsalations", method: "GET" }),
+      query: () => ({
+        url: "loseConsalations",
+        method: "GET",
+        next: { tags: ["random-lose-consalation"] },
+      }),
     }),
     getCardOfTheDay: builder.query<Card, void>({
-      query: () => ({ url: "cards/cardOfTheDay", method: "GET" }),
+      query: () => ({
+        url: "cards/cardOfTheDay",
+        method: "GET",
+        next: { tags: ["card-of-the-day"] },
+      }),
     }),
   }),
 });
