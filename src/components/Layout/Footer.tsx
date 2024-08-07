@@ -11,7 +11,7 @@ export const Footer = () => {
     data: quoteData,
     isLoading,
     isFetching,
-  } = useGetRandomQuoteQuery(new Date());
+  } = useGetRandomQuoteQuery(new Date().toDateString());
 
   return (
     <AntdFooter className={s.footer}>

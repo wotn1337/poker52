@@ -1,6 +1,6 @@
 {
   "name": "poker-app",
-  "version": "1.16.9",
+  "version": "1.16.10",
   "private": true,
   "scripts": {
     "dev": "next dev -p 58220",
