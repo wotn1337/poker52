@@ -47,14 +47,14 @@ export const AddScoreModal: FC<Props> = () => {
       if (!result.error) {
         if (session?.user.id === addScoreModal.userId) {
           if (isWin) {
-            getWinCongratulation(new Date().toDateString()).then((res) =>
+            getWinCongratulation().then((res) =>
               message.open({
                 content: res.data?.text,
                 icon: <TrophyFilled style={{ color: "#faad14" }} />,
               })
             );
           } else {
-            getLoseConsalation(new Date().toDateString()).then((res) =>
+            getLoseConsalation().then((res) =>
               message.open({
                 content: res.data?.text,
                 icon: <FrownFilled style={{ color: "#2f54eb" }} />,

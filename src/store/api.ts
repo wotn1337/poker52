@@ -70,16 +70,16 @@ export const apiSlice = createApi({
       query: (id) => ({ url: `users/${id}`, method: "DELETE" }),
       invalidatesTags: tags,
     }),
-    getRandomQuote: builder.query<Quote, string>({
+    getRandomQuote: builder.query<Quote, void>({
       query: () => ({ url: "quotes", method: "GET" }),
     }),
-    getRandomWinCongratulation: builder.query<WinCongratulation, string>({
+    getRandomWinCongratulation: builder.query<WinCongratulation, void>({
       query: () => ({ url: "winCongratulations", method: "GET" }),
     }),
-    getRandomLoseConsalation: builder.query<LoseConsalation, string>({
+    getRandomLoseConsalation: builder.query<LoseConsalation, void>({
       query: () => ({ url: "loseConsalations", method: "GET" }),
     }),
-    getCardOfTheDay: builder.query<Card, string>({
+    getCardOfTheDay: builder.query<Card, void>({
       query: () => ({ url: "cards/cardOfTheDay", method: "GET" }),
     }),
   }),

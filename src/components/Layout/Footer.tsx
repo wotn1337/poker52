@@ -7,11 +7,7 @@ const package_json = require("../../../package.json");
 const { Footer: AntdFooter } = Layout;
 
 export const Footer = () => {
-  const {
-    data: quoteData,
-    isLoading,
-    isFetching,
-  } = useGetRandomQuoteQuery(new Date().toDateString());
+  const { data: quoteData, isLoading, isFetching } = useGetRandomQuoteQuery();
 
   return (
     <AntdFooter className={s.footer}>
@@ -36,3 +32,5 @@ export const Footer = () => {
     </AntdFooter>
   );
 };
+
+export default Footer;
