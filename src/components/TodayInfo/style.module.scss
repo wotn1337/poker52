@@ -1,0 +1,36 @@
+.card {
+  height: 100%;
+
+  .card__body.card__body.card__body {
+    padding: 16px;
+    height: 100%;
+
+    &.cardOfTheDay {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cardOfTheDayWrapper {
+      flex: 1;
+    }
+
+    .modificationOfTheDay {
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+
+  .card__title.card__title {
+    margin: 0;
+    color: #cf1322;
+    color: black;
+
+    &--black {
+      color: #cf1322;
+    }
+  }
+
+  .combinationOfTheDayWrapper {
+    width: 100%;
+  }
+}

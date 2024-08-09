@@ -1,5 +1,7 @@
-import { Card } from "@/models/Card";
+import { CardType } from "@/models/Card";
+import { CombinationType } from "@/models/Combination";
 import { LoseConsalation } from "@/models/LoseConsalation";
+import { ModificationType } from "@/models/Modification";
 import { Quote } from "@/models/Quote";
 import {
   BaseUser,
@@ -90,11 +92,25 @@ export const apiSlice = createApi({
         next: { tags: ["random-lose-consalation"] },
       }),
     }),
-    getCardOfTheDay: builder.query<Card, void>({
+    getCardOfTheDay: builder.query<CardType, void>({
       query: () => ({
         url: "cards/cardOfTheDay",
         method: "GET",
         next: { tags: ["card-of-the-day"] },
+      }),
+    }),
+    getCombinationOfTheDay: builder.query<CombinationType, void>({
+      query: () => ({
+        url: "combinations/combinationOfTheDay",
+        method: "GET",
+        next: { tags: ["combination-of-the-day"] },
+      }),
+    }),
+    getModificationOfTheDay: builder.query<ModificationType, void>({
+      query: () => ({
+        url: "modifications/modificationOfTheDay",
+        method: "GET",
+        next: { tags: ["modification-of-the-day"] },
       }),
     }),
   }),
@@ -113,4 +129,6 @@ export const {
   useGetCardOfTheDayQuery,
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
+  useGetCombinationOfTheDayQuery,
+  useGetModificationOfTheDayQuery,
 } = apiSlice;

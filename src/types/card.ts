@@ -1,6 +1,6 @@
 export type CardKind = "hearts" | "diamonds" | "clubs" | "spades";
 export type CardValue =
-  | "t"
+  | "a"
   | "2"
   | "3"
   | "4"

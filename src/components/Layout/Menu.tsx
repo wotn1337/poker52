@@ -1,5 +1,6 @@
 "use client";
 import {
+  CalendarOutlined,
   HomeOutlined,
   LogoutOutlined,
   MenuOutlined,
@@ -30,6 +31,11 @@ export const Menu: FC = () => {
       label: <Link href={`/users/${session?.user.id}`}>Профиль</Link>,
       key: `/users/${session?.user.id}`,
       icon: <UserOutlined />,
+    },
+    {
+      label: <Link href={"/today"}>Сегодня</Link>,
+      key: "/today",
+      icon: <CalendarOutlined />,
     },
     {
       label: "Выйти",

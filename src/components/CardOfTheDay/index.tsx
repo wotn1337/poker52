@@ -14,14 +14,12 @@ export const CardOfTheDay = () => {
     <FloatButton
       icon={
         <Spin size="small" spinning={isFetching || isLoading}>
-          {cardOfTheDay?.image && (
-            <Image
-              src={cardOfTheDay.image}
-              alt="card of the day"
-              height={50}
-              width={48}
-            />
-          )}
+          <Image
+            src={`/card_icons/${cardOfTheDay?.value}_${cardOfTheDay?.kind}.svg`}
+            alt="card of the day"
+            height={50}
+            width={48}
+          />
         </Spin>
       }
       tooltip="Карта дня"
