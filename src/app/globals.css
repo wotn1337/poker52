@@ -23,4 +23,8 @@ textarea {
   h2.ant-typography.ant-typography {
     font-size: 22px;
   }
+
+  h3.ant-typography.ant-typography {
+    font-size: 18px;
+  }
 }
