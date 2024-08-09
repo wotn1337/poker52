@@ -33,7 +33,10 @@ export const TodayInfo = () => {
           className={s.card}
           classNames={{ body: cn(s.card__body, s.cardOfTheDay) }}
         >
-          <Typography.Title level={3} className={s.card__title}>
+          <Typography.Title
+            level={3}
+            className={cn(s.card__title, s.marginBottom)}
+          >
             Карта дня
           </Typography.Title>
           <Flex
