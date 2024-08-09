@@ -1,6 +1,7 @@
 import {
   useGetCardOfTheDayQuery,
   useGetCombinationOfTheDayQuery,
+  useGetModificationOfTheDayQuery,
 } from "@/store/api";
 import { Card, Col, Divider, Flex, Row, Space, Typography } from "antd";
 import Image from "next/image";
@@ -9,21 +10,26 @@ import cn from "classnames";
 
 export const TodayInfo = () => {
   const {
-    data: cardOfTheDay,
-    isFetching: cardOfTheDayFetching,
-    isLoading: cardOfTheDayLoading,
+    data: card,
+    isFetching: cardFetching,
+    isLoading: cardLoading,
   } = useGetCardOfTheDayQuery();
   const {
-    data: combinationOfTheDay,
-    isFetching: combinationOfTheDayFetching,
-    isLoading: combinationOfTheDayLoading,
+    data: combination,
+    isFetching: combinationFetching,
+    isLoading: combinationLoading,
   } = useGetCombinationOfTheDayQuery();
+  const {
+    data: modification,
+    isFetching: modificationFetching,
+    isLoading: modificationLoading,
+  } = useGetModificationOfTheDayQuery();
 
   return (
     <Row gutter={[8, 8]} wrap>
       <Col span={10}>
         <Card
-          loading={cardOfTheDayFetching || cardOfTheDayLoading}
+          loading={cardFetching || cardLoading}
           className={s.card}
           classNames={{ body: cn(s.card__body, s.cardOfTheDay) }}
         >
@@ -36,7 +42,7 @@ export const TodayInfo = () => {
             className={s.cardOfTheDayWrapper}
           >
             <Image
-              src={`/card_icons/${cardOfTheDay?.value}_${cardOfTheDay?.kind}.svg`}
+              src={`/card_icons/${card?.value}_${card?.kind}.svg`}
               alt="card of the day"
               height={120}
               width={100}
@@ -46,7 +52,7 @@ export const TodayInfo = () => {
       </Col>
       <Col flex="auto" span={14}>
         <Card
-          loading={cardOfTheDayFetching || cardOfTheDayLoading}
+          loading={modificationLoading || modificationFetching}
           className={s.card}
           classNames={{ body: s.card__body }}
         >
@@ -55,8 +61,7 @@ export const TodayInfo = () => {
               Модификация дня
             </Typography.Title>
             <Typography.Paragraph className={s.modificationOfTheDay}>
-              Все игроки играют раздачу, не глядя в свои карты до конца раунда
-              ставок
+              {modification?.text}
             </Typography.Paragraph>
           </Space>
         </Card>
@@ -65,7 +70,7 @@ export const TodayInfo = () => {
         <Card
           className={s.card}
           classNames={{ body: s.card__body }}
-          loading={combinationOfTheDayFetching || combinationOfTheDayLoading}
+          loading={combinationFetching || combinationLoading}
         >
           <Space direction="vertical" className={s.combinationOfTheDayWrapper}>
             <Space>
@@ -77,7 +82,7 @@ export const TodayInfo = () => {
                 level={3}
                 className={cn(s.card__title, s["card__title--black"])}
               >
-                {combinationOfTheDay?.name}
+                {combination?.name}
               </Typography.Title>
             </Space>
             <Space
@@ -87,13 +92,14 @@ export const TodayInfo = () => {
                 justifyContent: "center",
               }}
             >
-              {combinationOfTheDay?.example.map((card) => (
+              {combination?.example.map((card) => (
                 <Image
                   src={`/card_icons/${card.value}_${card.kind}.svg`}
                   style={{ opacity: card.inCombination ? 1 : 0.4 }}
                   alt={`${card.value}_${card.kind}`}
                   height={75}
                   width={60}
+                  key={`${card.value}-${card.kind}`}
                 />
               ))}
             </Space>

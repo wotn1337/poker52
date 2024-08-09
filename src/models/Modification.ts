@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 export type ModificationType = {
   _id: string;
   text: string;
-  modificationOfTheDay: boolean;
+  instanceOfTheDay: boolean;
 };
 
 const ModificationSchema = new mongoose.Schema({
   key: { type: String, required: true },
   text: { type: String, required: true },
-  modificationOfTheDay: { type: Boolean, default: false },
+  instanceOfTheDay: { type: Boolean, default: false },
 });
 
 const Modification =

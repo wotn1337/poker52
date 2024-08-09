@@ -14,7 +14,7 @@ type CombinationKey =
   | "StraightFlush"
   | "RoyalFlush";
 
-type CombinationCard = Omit<CardType, "_id" | "cardOfTheDay"> & {
+type CombinationCard = Omit<CardType, "_id" | "instanceOfTheDay"> & {
   inCombination: boolean;
 };
 
@@ -22,14 +22,14 @@ export type CombinationType = {
   _id: string;
   key: CombinationKey;
   name: string;
-  combinationOfTheDay: boolean;
+  instanceOfTheDay: boolean;
   example: CombinationCard[];
 };
 
 const CombinationSchema = new mongoose.Schema({
   key: { type: String, required: true },
   name: { type: String, required: true },
-  combinationOfTheDay: { type: Boolean, default: false },
+  instanceOfTheDay: { type: Boolean, default: false },
   example: {
     type: Array<CombinationCard>,
     required: true,

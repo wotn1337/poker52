@@ -9,7 +9,7 @@ export async function GET() {
   try {
     await dbConnect();
     const modificationOfTheDay = await Modification.findOne<ModificationType>({
-      modificationOfTheDay: true,
+      instanceOfTheDay: true,
     });
 
     return NextResponse.json(modificationOfTheDay);

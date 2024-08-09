@@ -8,7 +8,7 @@ export async function GET() {
   revalidateTag("card-of-the-day");
   try {
     await dbConnect();
-    const cardOfTheDay = await Card.findOne({ cardOfTheDay: true });
+    const cardOfTheDay = await Card.findOne({ instanceOfTheDay: true });
     return NextResponse.json(cardOfTheDay);
   } catch (error) {
     return NextResponse.json(

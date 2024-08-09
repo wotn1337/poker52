@@ -9,7 +9,7 @@ export async function GET() {
   try {
     await dbConnect();
     const combinationOfTheDay = await Combination.findOne<CombinationType>({
-      combinationOfTheDay: true,
+      instanceOfTheDay: true,
     });
 
     return NextResponse.json(combinationOfTheDay);

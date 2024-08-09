@@ -5,13 +5,13 @@ export type CardType = {
   _id: string;
   kind: CardKind;
   value: CardValue;
-  cardOfTheDay: boolean;
+  instanceOfTheDay: boolean;
 };
 
 const CardSchema = new mongoose.Schema({
   kind: { type: String, required: true },
   value: { type: String, required: true },
-  cardOfTheDay: { type: Boolean, required: true },
+  instanceOfTheDay: { type: Boolean, required: true },
 });
 
 const Card = mongoose.models?.Card || mongoose.model("Card", CardSchema);
