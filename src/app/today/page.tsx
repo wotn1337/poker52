@@ -10,11 +10,11 @@ export default function UserPage() {
   return (
     <ProtectedRoute>
       <Space align="center" className={s.titleWrapper}>
-        <Typography.Title level={1} className={s.title}>
+        <Typography.Title level={2} className={s.title}>
           Сегодня
         </Typography.Title>
         <Divider type="vertical" />
-        <Typography.Title level={1} type="secondary" className={s.title}>
+        <Typography.Title level={2} type="secondary" className={s.title}>
           {moment(new Date()).locale("ru").format("D MMMM")}
         </Typography.Title>
       </Space>
