@@ -1,9 +1,9 @@
 const { MongoClient } = require("mongodb");
-const { mongoURI } = require("./config");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 async function updateInstanceOfTheDay(collectionName, instanceName) {
-  console.log(mongoURI);
-  const client = new MongoClient(mongoURI);
+  const client = new MongoClient(process.env.MONGODB_URI);
   try {
     await client.connect();
     const db = client.db();

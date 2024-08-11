@@ -1,4 +1,3 @@
-require("./config");
 const { updateInstanceOfTheDay } = require("./updateInstanceOfTheDay");
 
 async function updateCombinationOfTheDay() {
