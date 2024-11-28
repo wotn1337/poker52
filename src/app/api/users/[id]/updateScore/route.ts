@@ -45,10 +45,9 @@ export async function PATCH(req: NextRequest) {
 
     if (existingEntry) {
       existingEntry.changeScoreValue += score;
-      newWinStreak =
-        existingEntry.changeScoreValue > 0 ? currentWinStreak + 1 : 0;
+      newWinStreak = existingEntry.changeScoreValue > 0 ? currentWinStreak : 0;
       newLoseStreak =
-        existingEntry.changeScoreValue < 0 ? currentLoseStreak + 1 : 0;
+        existingEntry.changeScoreValue < 0 ? currentLoseStreak : 0;
       newMaxWin = Math.max(existingEntry.changeScoreValue, maxWin);
       newMaxLose = Math.min(existingEntry.changeScoreValue, maxLose);
       existingEntry.totalScoreAfterValue += score;
