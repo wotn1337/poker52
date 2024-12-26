@@ -74,6 +74,16 @@ class Card {
     const valueIndex = Card.values.indexOf(this.value);
     return Card.values[valueIndex + 1];
   }
+
+  static getRandomCard() {
+    const valueIndex = Math.floor(Math.random() * this.values.length);
+    const kindIndex = Math.floor(Math.random() * this.kinds.length);
+
+    return {
+      value: this.values[valueIndex],
+      kind: this.kinds[kindIndex],
+    };
+  }
 }
 
 module.exports = { Card };

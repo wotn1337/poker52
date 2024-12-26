@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { CardType } from "./Card";
 
 export type BaseUser = {
   _id: string;
@@ -24,6 +25,9 @@ export type ScoreHistoryItem = {
 
 export type FullUser = BaseUser & {
   scoreHistory: ScoreHistoryItem[];
+  bonus: {
+    card: Pick<CardType, "kind" | "value">;
+  };
 };
 
 export type CreateUserParams = Omit<

@@ -5,3 +5,21 @@
     margin-bottom: 10px;
   }
 }
+
+.dailyBonusFloatButton {
+  width: auto;
+
+  :global(.ant-float-btn-body) {
+    padding: 8px;
+
+    :global(.ant-float-btn-content) {
+      width: 100%;
+      padding: 0;
+
+      :global(.ant-float-btn-icon.ant-float-btn-icon) {
+        width: 100%;
+        line-height: 0;
+      }
+    }
+  }
+}

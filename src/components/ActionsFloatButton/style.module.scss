@@ -1,8 +1,5 @@
 .actionFloatButton {
   &:global(.ant-float-btn.ant-float-btn-circle) {
-    width: 60px;
-    height: 60px;
-
     :global(.ant-float-btn-body.ant-float-btn-body) {
       width: 100%;
       height: 100%;
@@ -18,8 +15,4 @@
   .buttonIcon {
     font-size: 30px;
   }
-}
-
-.adminActionButtonsGroup.adminActionButtonsGroup {
-  width: 60px;
 }

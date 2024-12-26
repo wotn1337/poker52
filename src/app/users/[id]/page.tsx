@@ -10,7 +10,16 @@ import {
   BarChartOutlined,
   LineChartOutlined,
 } from "@ant-design/icons";
-import { Button, Card, Empty, Space, Tabs, TabsProps, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Empty,
+  FloatButton,
+  Space,
+  Tabs,
+  TabsProps,
+  Typography,
+} from "antd";
 import {
   BarElement,
   CategoryScale,
@@ -26,6 +35,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import zoomPlugin from "chartjs-plugin-zoom";
 import { useParams } from "next/navigation";
 import s from "./style.module.scss";
+import Image from "next/image";
 
 ChartJS.register(
   CategoryScale,
@@ -90,6 +100,23 @@ export default function UserPage() {
           <Tabs defaultActiveKey="1" items={items} />
         </Card>
       </Space>
+      {user?.bonus.card && (
+        <FloatButton
+          icon={
+            <Image
+              src={`/card_icons/${user.bonus.card.value}_${user.bonus.card.kind}.svg`}
+              alt="Твоя персональная карта дня"
+              style={{ width: "100%" }}
+              width={50}
+              height={60}
+            />
+          }
+          className={s.dailyBonusFloatButton}
+          shape="square"
+          type="default"
+          tooltip="Это твоя персональная карта дня. Если ты выиграешь раздачу, собрав комбинацию с ней, каждый игрок должен подарить тебе 50 рублей"
+        />
+      )}
     </ProtectedRoute>
   );
 }

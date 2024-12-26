@@ -31,6 +31,9 @@ export const AntdThemeProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
           Table: {
             bodySortBg: "transparent",
           },
+          FloatButton: {
+            controlHeightLG: 60,
+          },
         },
       }}
     >
