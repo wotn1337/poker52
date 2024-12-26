@@ -100,7 +100,7 @@ export default function UserPage() {
           <Tabs defaultActiveKey="1" items={items} />
         </Card>
       </Space>
-      {user?.bonus.card && (
+      {user?.bonus?.card && (
         <FloatButton
           icon={
             <Image
